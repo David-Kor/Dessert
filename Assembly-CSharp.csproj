@@ -79,6 +79,7 @@
      <Compile Include="Assets\iTween\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
      <None Include="Assets\Sprite Pack\Tap and Fly\Readme.txt" />
      <None Include="Assets\iTween\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
+     <None Include="Assets\Resources\TEST_MENU_LIST.txt" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>C:/Users/David/Documents/공부자료/Unity/Dessert/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>

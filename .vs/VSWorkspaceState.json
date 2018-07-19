@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Assets",
+    "\\Assets\\CScripts"
   ],
+  "SelectedNode": "\\Assets\\CScripts\\DayLightUI.cs",
   "PreviewInSolutionExplorer": false
 }
