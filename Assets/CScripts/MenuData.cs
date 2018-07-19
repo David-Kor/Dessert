@@ -1,22 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using UnityEngine;
-
+using SEASON = EnumCollection.SEASON;   //EnumCollection에 있는 enum형들을 통해 일관성 있게 사용 가능
+using PLATE = EnumCollection.PLATE;
+using TOOL = EnumCollection.TOOL;
 
 public class MenuData : MonoBehaviour
 {
     public List<Dictionary<string, string>> recipes;
-    public enum SEASON { SPRING, SUMMER, FALL, WINTER, EVERYDAY }
-    public enum TOOL { A, B, C, D }    //SAMPLE
-    public enum PLATE { DISH, CUP }
-    public struct Ingredients
+    
+    public class Ingredients
     {
         public string name;
         public int require;
     }
-    public struct Menu
+
+    public class Menu
     {
         public int id;  //식별자
         public string name;     //메뉴명
@@ -143,7 +142,7 @@ public class MenuData : MonoBehaviour
         }
 
         sr.Close();
-    }
+    }   //외부 레시피 파일 불러오기
 
     void WriteParsingInfo()
     {   //작성 완료된 메뉴들을 파일로 작성하여 테스트
@@ -169,24 +168,35 @@ public class MenuData : MonoBehaviour
             {
                 sw.Write("\t" + node.Value.ingredients[j].name + " : " + node.Value.ingredients[j].require);
             }
-            sw.WriteLine();
+            sw.WriteLine("\t" + node.Value.enabled);
             node = node.Next;
         }
         sw.Close();
+    }   //가공이 완료된 메뉴 리스트 내보내기(테스트 및 확인 용)
+
+    public void ActivationAllMenu(GameObject dayCounter)
+    {   //(외부 클래스에서 호출되는 함수) 활성화 상태 갱신
+
+        if (menuList.Count <= 0 || dayCounter == null) { return; }
+
+        LinkedListNode<Menu> node = menuList.First;
+        while(node != null)
+        {
+            //현재 계절에 맞는 지 검사(제철 검사)
+            if (node.Value.season == dayCounter.GetComponent<DayCounter>().currentSeason
+                || node.Value.season == SEASON.EVERYDAY)
+            {
+                node.Value.enabled = true;
+            }
+            else
+            {
+                node.Value.enabled = false;
+            }
+
+            node = node.Next;
+        }
+
+        WriteParsingInfo();
     }
+
 }
-/*
- * ID,1,
-   이름
-   계절
-   가격
-   제작
-   설비
-   재료
-   재료
-   재료
-   재료
-   재료
-   재료
-   재료
-*/
