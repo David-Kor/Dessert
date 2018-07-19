@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - Group
+  - Table
+  - Object
+  - PlayerObject
+  - Field
+  - Guest
+  - UI
+  - Wall
+  - Hall
+  - Kitchen
+  - SpriteInObject
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - field
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Field
+    uniqueID: 2656624591
+    locked: 0
+  - name: MapObject
+    uniqueID: 3373347689
+    locked: 0
+  - name: ObjectSprite
+    uniqueID: 673657753
+    locked: 0
+  - name: Action
+    uniqueID: 831330765
+    locked: 0
+  - name: Marker
+    uniqueID: 3729860577
+    locked: 0
+  - name: UI
+    uniqueID: 3241540323
+    locked: 0
