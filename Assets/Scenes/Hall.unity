@@ -719,11 +719,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114791075763597536, guid: 78429a21c5297e44a9428133aad7e01e,
-        type: 2}
-      propertyPath: currentSeason
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78429a21c5297e44a9428133aad7e01e, type: 2}
   m_IsPrefabAsset: 0
@@ -858,6 +853,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114387564748533514, guid: 73ea8d781dc3dae43aa470658a8e8ee7,
+        type: 2}
+      propertyPath: menuData
+      value: 
+      objectReference: {fileID: 1225644312}
     - target: {fileID: 1846880033980330, guid: 73ea8d781dc3dae43aa470658a8e8ee7, type: 2}
       propertyPath: m_Name
       value: Table (9)
@@ -1247,12 +1247,12 @@ Prefab:
     - target: {fileID: 114757411095879330, guid: a7936607ac00e6b418b1e9147b1a8f73,
         type: 2}
       propertyPath: spawnMinDelaySec
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114757411095879330, guid: a7936607ac00e6b418b1e9147b1a8f73,
         type: 2}
       propertyPath: spawnMaxDelaySec
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7936607ac00e6b418b1e9147b1a8f73, type: 2}
@@ -1360,16 +1360,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 212177918086108566, guid: 73ea8d781dc3dae43aa470658a8e8ee7,
+    - target: {fileID: 114387564748533514, guid: 73ea8d781dc3dae43aa470658a8e8ee7,
         type: 2}
-      propertyPath: m_SortingLayerID
-      value: 673657753
-      objectReference: {fileID: 0}
-    - target: {fileID: 212177918086108566, guid: 73ea8d781dc3dae43aa470658a8e8ee7,
-        type: 2}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
+      propertyPath: menuData
+      value: 
+      objectReference: {fileID: 1225644312}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73ea8d781dc3dae43aa470658a8e8ee7, type: 2}
   m_IsPrefabAsset: 0
@@ -1607,6 +1602,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52c3983df1145584ba2ae399e57c86e4, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1225644312 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114303317753503082, guid: 78429a21c5297e44a9428133aad7e01e,
+    type: 2}
+  m_PrefabInternal: {fileID: 434542400}
+  m_Script: {fileID: 11500000, guid: 81da5ab3331f1b74c8df59027c5fc372, type: 3}
 --- !u!4 &1291182768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4706367564205296, guid: 6f0900ca3b3dbf743b10b4d1c6485fbd,

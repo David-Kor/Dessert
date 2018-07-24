@@ -5,13 +5,11 @@ using UnityEngine;
 public class DayLightUI : MonoBehaviour {
     public float secPerDay;   //minutePerDay의 값만큼 하루의 시간이 결정
     public float moveHeight;
-    private Vector3 lowest;
     private Vector3 highest;
 
     /*Lowest Y Position : -1.12
       Highest Y Position : 1.12*/
 	void Start () {
-        lowest = new Vector3(transform.position.x, transform.position.y, -10);
         highest = new Vector3(transform.position.x, transform.position.y + moveHeight, -10);
     }
 	

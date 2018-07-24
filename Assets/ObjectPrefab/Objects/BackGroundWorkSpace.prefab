@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 114303317753503082}
   m_Layer: 0
   m_Name: MenuDataBase
-  m_TagString: EditorOnly
+  m_TagString: Menu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,9 +99,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4686756849808946}
+  - component: {fileID: 114444192510781710}
   m_Layer: 0
-  m_Name: GameObject
-  m_TagString: EditorOnly
+  m_Name: OrderList
+  m_TagString: OrderList
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,6 +241,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81da5ab3331f1b74c8df59027c5fc372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114444192510781710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1814919761227390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a7fcfd83b51de74c80237d344bbe745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114791075763597536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266833e9655e8284aae79ea575534308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secPerDay: 600
+  secPerDay: 300
   moveHeight: 2.261
 --- !u!212 &212191528893674322
 SpriteRenderer:

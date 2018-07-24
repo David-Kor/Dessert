@@ -4,7 +4,7 @@ using SEASON = EnumCollection.SEASON;
 public class DayCounter : MonoBehaviour {
     public int remainDays;   //D-Counter
     public int pastDays;
-    public int dayPerSeason;    //[One] Season = [dayPerSeason] Day
+    public int dayPerSeason;    //[One] Season == [dayPerSeason] Day
     public SEASON currentSeason;
     public GameObject menuDB;
 
@@ -34,7 +34,7 @@ public class DayCounter : MonoBehaviour {
                 currentSeason = SEASON.WINTER;
                 break;
         }
-
+        remainDays = DAY_OF_END - pastDays;
         dailyInit = true;
 
 	}

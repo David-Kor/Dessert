@@ -1,37 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using T_STATE = EnumCollection.T_STATE;
+using G_STATE = EnumCollection.G_STATE;
 
 public class GuestAction : MyCharacterMove{
     /*STATE LIST : Move , Hold , Sit , Order , Wait , Eat , Pay
      */
-    public string currentState;
+    public G_STATE currentState;
     public float timeToOrderSec;
 
     private GameObject myTable;
     private GameObject myGroup;
+    private GuestConfig config;
     private float timer;
+    private bool waitForOrder;
 
 	// Use this for initialization
 	void Start ()
     {
         timer = 0.0f;
+        waitForOrder = false;
     }
 
     void Update()
     {
         switch (currentState)
         {
-            case "Move":    //이동 처리
+            case G_STATE.MOVE:    //이동 처리
                 MoveStateAction();
                 break;
-            case "Hold":    //목표 지점까지 이동 완료 -> Move 다음 행동 분기점
+            case G_STATE.HOLD:    //목표 지점까지 이동 완료 (Move 다음 행동 분기점)
                 HoldStateAction();
                 break;
-            case "Sit":     //착석
+            case G_STATE.SIT:     //착석
                 SitStateAction();
                 break;
-            case "Order":
+            case G_STATE.ORDER:
+                OrderStateAction();
                 break;
         }
     }
@@ -60,7 +66,7 @@ public class GuestAction : MyCharacterMove{
             {
                 isMoving = false;
                 path.Clear();
-                currentState = "Hold";
+                currentState = G_STATE.HOLD;
             }
         }
 
@@ -69,7 +75,7 @@ public class GuestAction : MyCharacterMove{
             counter = -1;
             isMoving = false;
         }
-    }
+    }   //Move 상태 AI
 
 
     void HoldStateAction()
@@ -80,15 +86,15 @@ public class GuestAction : MyCharacterMove{
         {
             if (RayCastGround(transform.position) == groundList[i])
             {
-                currentState = "Sit";
-                if (myGroup.GetComponent<GuestAction>().currentState == "Sit")
+                currentState = G_STATE.SIT;
+                if (myGroup.GetComponent<GuestAction>().currentState == G_STATE.SIT)
                 {   //일행도 앉아있다면 테이블의 상태를 USING(1)로 전환
-                    myTable.GetComponent<TableStateManager>().stateOfTable = (int)TableStateManager.STATE.USING;
+                    myTable.GetComponent<TableStateManager>().stateOfTable = T_STATE.USING;
                 }
                 groundList[i].GetComponent<GroundUnit>().SetAbsolutePassable(false);    //손님이 자리잡은 땅을 절대 지나갈 수 없게 함
             }
         }
-    }
+    }   //Hold 상태 AI
 
 
     void SitStateAction()
@@ -97,25 +103,32 @@ public class GuestAction : MyCharacterMove{
         if (timer >= timeToOrderSec)   //일정 시간이 지나면 주문
         {
             timer = 0;
-            currentState = "Order";
-            //같은 부모를 둔 자식들 중, Marker의 스프라이트 활성화
-            myTable.transform.parent.GetChild(1).gameObject.SetActive(true);
-            myTable.GetComponent<TableStateManager>().SetOrderEventEnabled(true);
+            currentState = G_STATE.ORDER;
         }
-    }
+    }   //Sit 상태 AI
 
 
     void OrderStateAction()
     {
-
+        if (!waitForOrder)
+        {
+            //주문의 정보를 Table에 넘김
+            myTable.GetComponent<TableStateManager>().SetOrderEventEnabled(true);
+            waitForOrder = true;
+        }
     }
 
-    public void SetCurrentState(string _state) { currentState = _state; }
-
-    public void SetFieldObject(GameObject _field) { currentField = _field; }
-
-    public void SetMyTable(GameObject _table) { myTable = _table; }
+    public void SetCurrentState(G_STATE _state) { currentState = _state; }
 
     public void SetMyGroup(GameObject _group) { myGroup = _group; }
+
+    public void InitGuest(GameObject _table, GameObject _field)
+    {
+        myTable = _table;
+        currentField = _field;
+        config = new GuestConfig(myTable);
+    }
+
+    public GuestConfig GetGuestConfig() { return config; }
 
 }

@@ -68,7 +68,7 @@
      <Compile Include="Assets\CScripts\MoveCharacter\MyCharacterMove.cs" />
      <Compile Include="Assets\CScripts\MoveCharacter\PlayerCharacterAnimation.cs" />
      <Compile Include="Assets\CScripts\ObjectEventManager.cs" />
-     <Compile Include="Assets\CScripts\OrderInfoTable.cs" />
+     <Compile Include="Assets\CScripts\OrderInfoList.cs" />
      <Compile Include="Assets\CScripts\PayAtCounter.cs" />
      <Compile Include="Assets\CScripts\SpawnGuest.cs" />
      <Compile Include="Assets\CScripts\SpriteOrderLayer.cs" />

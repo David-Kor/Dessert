@@ -16,6 +16,8 @@ TagManager:
   - Hall
   - Kitchen
   - SpriteInObject
+  - Menu
+  - OrderList
   layers:
   - Default
   - TransparentFX
