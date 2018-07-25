@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ObjectEventManager : MonoBehaviour {
     public bool doEvent;    //이벤트 플래그 변수

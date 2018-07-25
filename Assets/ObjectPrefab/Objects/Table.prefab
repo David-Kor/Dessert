@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846880033980330}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: -5, z: 0}
+  m_LocalPosition: {x: 2, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4845547626473886}
@@ -226,7 +226,7 @@ MonoBehaviour:
   stateOfTable: 0
   tableID: 0
   timeToScrub: 5
-  menuData: {fileID: 0}
+  timeToOrder: 3
   guestGroup: []
 --- !u!114 &114524563227532680
 MonoBehaviour:

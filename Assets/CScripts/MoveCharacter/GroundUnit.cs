@@ -11,7 +11,6 @@ public class GroundUnit : MonoBehaviour {
 
 	void Start () {
         isPassable = true;
-        this.transform.Translate(Vector3.forward);
         unpassableObjectTagList = new List<string>
         {
             "Object",

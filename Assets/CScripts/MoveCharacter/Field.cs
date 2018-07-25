@@ -23,7 +23,7 @@ public class Field : MonoBehaviour {
 
             for (j = 0; j < sizeOfFieldHeight; j++)
             {
-                childGround[i, j] = Instantiate(originOfChild, vec, this.transform.rotation, this.gameObject.transform);
+                childGround[i, j] = Instantiate(originOfChild, vec, transform.rotation, transform);
                 childGround[i, j].name = fieldName;
                 childGround[i, j].GetComponent<GroundUnit>().setIndex(i, j);
                 navigator.AddNode(childGround[i, j].AddComponent<GroundNode>(), i, j);

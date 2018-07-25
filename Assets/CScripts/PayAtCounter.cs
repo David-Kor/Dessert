@@ -20,13 +20,13 @@ public class PayAtCounter : MonoBehaviour {
             GetComponent<ObjectEventManager>().doEvent = false;
             if (targetPlayer != null)
             {   //castPosition에 있는 땅으로 이동시킴
-                targetPlayer.GetComponent<MyCharacterMove>().MoveThisGround(GetCastGround(castPosition));
+                targetPlayer.GetComponent<MyCharacterMove>().MoveThisGround(GetCounterGround(castPosition));
             }
         }
 
 	}
 
-    private GameObject GetCastGround(Vector2 pos)
+    private GameObject GetCounterGround(Vector2 pos)
     {
         RaycastHit2D[] hit = Physics2D.RaycastAll(pos, Vector2.zero);
         for (int i = 0; i < hit.Length; i++)

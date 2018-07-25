@@ -38,6 +38,7 @@ public class ToggleView : MonoBehaviour {
 
         for (i = 0; i < spriteInHall.Length; i++)
         {
+            if (spriteInHall[i].gameObject.name.Contains("Marker")) { continue; }
             spriteInHall[i].enabled = false;
         }
         for (i = 0; i < spriteInKitchen.Length; i++)
@@ -71,6 +72,7 @@ public class ToggleView : MonoBehaviour {
 
         for (i = 0; i < spriteInHall.Length; i++)
         {
+            if (spriteInHall[i].gameObject.name.Contains("Marker")) { continue; }
             spriteInHall[i].enabled = true;
         }
         for (i = 0; i < spriteInKitchen.Length; i++)

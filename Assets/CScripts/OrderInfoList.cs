@@ -4,30 +4,49 @@ using UnityEngine;
 
 public class OrderInfoList : MonoBehaviour
 {
-    public class Order
-    {
-        public GameObject table;
-        public List<int> menuIDList;
-    }
-
-    LinkedList<Order> orders;
+    public LinkedList<Order> orders;
+    private int preCount;
 
     void Start()
     {
         orders = new LinkedList<Order>();
+        preCount = 0;
+    }
+    void Update()
+    {
+        if (preCount != orders.Count)
+        {
+            TransmissionOrderListToUI();
+            preCount = orders.Count;
+        }
     }
 
-    public void AppendOrder(List<int> _idList, GameObject _table)
+    public void AppendOrder(List<int> _idList, GameObject _table)   //직접 주문 정보를 받아 새 Order추가
     {
         orders.AddLast(new Order
         {
             table = _table,
-            menuIDList = _idList
+            menuIDList = _idList,
+            enabled = false
         });
-        Debug.Log(orders.Last.Value.table.GetComponent<TableStateManager>().tableID);
-        for (int i = 0; i < orders.Last.Value.menuIDList.Count; i++)
+    }
+
+    public void AppendOrder(Order _order)   //Order클래스로 받아 새 Order추가
+    { orders.AddLast(_order); }
+
+    public void TransmissionOrderListToUI()
+    {
+        LinkedListNode<Order> node = orders.First;
+        while (node != null)
         {
-            Debug.Log("[" + (i + 1) + "] : " + orders.Last.Value.menuIDList[i] + MenuData.ConvertMenuIDToName(orders.Last.Value.menuIDList[i]));
+
+            for (int i = 0; i < node.Value.menuIDList.Count; i++)
+            {
+                Debug.Log("[" + node.Value.table.GetComponent<TableStateManager>().tableID +
+                    "] : " + MenuData.ConvertMenuIDToName(node.Value.menuIDList[i]));
+            }
+            if (!node.Value.enabled) { node.Value.enabled = true; }
+            node = node.Next;
         }
     }
 

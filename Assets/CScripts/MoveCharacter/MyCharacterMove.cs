@@ -71,7 +71,12 @@ public class MyCharacterMove : MonoBehaviour
 
     public bool MoveThisGround(GameObject _targetGround)   //이동 명령을 할 때 호출됨
     {
-        if (_targetGround == null || !_targetGround.CompareTag("Ground")) { return false; }   //대상이 없거나 땅이 아니면 움직이지 않음
+        if (_targetGround == null || !_targetGround.CompareTag("Ground"))   //대상이 없거나 땅이 아니면 움직이지 않음
+        {
+            path.Clear();
+            counter = -1;
+            return false;
+        }
 
         targetGround = _targetGround;
 
@@ -92,8 +97,8 @@ public class MyCharacterMove : MonoBehaviour
         return false;
     }
 
-    protected GameObject RayCastGround(Vector2 _rayPos)
-    {   //레이캐스트로 해당 좌표에 있는 Ground 오브젝트 탐색
+    protected GameObject RayCastGround(Vector2 _rayPos)     //레이캐스트로 해당 좌표에 있는 Ground 오브젝트 탐색
+    {
 
         RaycastHit2D[] hit = Physics2D.RaycastAll(_rayPos, Vector2.zero);
 
@@ -112,7 +117,7 @@ public class MyCharacterMove : MonoBehaviour
 
     public GameObject GetTargetGround() { return targetGround; }
 
-    public void CheckField()
+    public void CheckField()    //현재 필드(주방/홀)를 확인
     {
         RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, Vector2.zero);
 

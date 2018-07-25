@@ -8,7 +8,9 @@ public class TableStateManager : MonoBehaviour {
     public T_STATE stateOfTable;    //테이블 상태 -> 0: 준비(청소됨), 1: 사용중, 2: 사용 끝(청소 안됨), 3: 사용하려는 손님이 있음
     public int tableID;
     public float timeToScrub;
+    public float timeToOrder;
     public List<GameObject> guestGroup;
+    public static int MAX_ORDER_COUNT = 2;
 
     private T_STATE preState;
     private bool doWork;
@@ -17,7 +19,6 @@ public class TableStateManager : MonoBehaviour {
     private GameObject targetPlayer;
     private GameObject accessGround;
     private List<int> orderList;
-    private static int idCounter = 1;
 
     // Use this for initialization
     void Start()
@@ -29,7 +30,12 @@ public class TableStateManager : MonoBehaviour {
         accessGround = null;
         guestGroup = new List<GameObject>();
         orderList = new List<int>();
-        tableID = idCounter++;
+
+        string strToID = transform.parent.gameObject.name;
+        strToID = strToID.Split(' ')[1];
+        strToID = strToID.Replace("(", "");     // ( 제거
+        strToID = strToID.Replace(")", "");     // ) 제거
+        tableID = System.Convert.ToInt32(strToID) + 1;
     }
 
     // Update is called once per frame
@@ -50,9 +56,11 @@ public class TableStateManager : MonoBehaviour {
             if (targetPlayer != null && stateOfTable != T_STATE.CLEAR)
             {   //작업대상 플레이어를 움직임
                 doWork = true;
-                if (!isGuestOrder) doWork = false;
+                if (!isGuestOrder && stateOfTable == T_STATE.USING) doWork = false;
                 if (targetPlayer.transform.position == accessGround.transform.position) { return; }
                 targetPlayer.GetComponent<MyCharacterMove>().MoveThisGround(accessGround);
+                timeToOrder = targetPlayer.GetComponent<PlayerConfig>().timeToTakeOrder;
+                timeToScrub = targetPlayer.GetComponent<PlayerConfig>().timeToScrub;
             }
 
         }
@@ -132,14 +140,20 @@ public class TableStateManager : MonoBehaviour {
                 case T_STATE.USING:
                     if (isGuestOrder && orderList.Count > 0)
                     {   //주문할 메뉴가 정해져 있다면
-                        transform.parent.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                        timer += Time.deltaTime;
+                        if (timer >= timeToOrder)
+                        {
+                            transform.parent.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-                        for (int i = 0; i < guestGroup.Count; i++)
-                        {   //그룹에 속한 손님들의 상태를 WAIT로 전환
-                            guestGroup[i].GetComponent<GuestAction>().SetCurrentState(G_STATE.WAIT);
+                            for (int i = 0; i < guestGroup.Count; i++)
+                            {   //그룹에 속한 손님들의 상태를 WAIT로 전환
+                                guestGroup[i].GetComponent<GuestAction>().SetCurrentState(G_STATE.WAIT);
+                            }
+                            targetPlayer.GetComponent<PlayerConfig>().TakeOrderToPlayer(gameObject, orderList);
+                            doWork = false;
+                            isGuestOrder = false;
+                            targetPlayer = null;
                         }
-                        GameObject.FindGameObjectWithTag("OrderList").GetComponent<OrderInfoList>().AppendOrder(orderList, gameObject);
-                        isGuestOrder = false;
                     }
                     break;
             }
@@ -156,7 +170,7 @@ public class TableStateManager : MonoBehaviour {
         for (i = 0; i < guestGroup.Count; i++)
         {
             config = guestGroup[i].GetComponent<GuestAction>().GetGuestConfig();    //그룹에 속한 손님의 정보를 받아옴
-            List<int> myMenu = menuData.GetIDsContainsIngredients(config.favorite);
+            List<int> myMenu = menuData.GetIDsContainsIngredients(config.favorite, MAX_ORDER_COUNT);
 
             for (j = 0; j < myMenu.Count; j++)
             {
@@ -180,14 +194,9 @@ public class TableStateManager : MonoBehaviour {
             }
         }
 
-        for (i = 0; i < orderList.Count; i++)
-        {
-            //Debug.Log("LIST [" + (i + 1) + "] (" + menuData.GetMenu(orderList[i]).enabled + ") : " + MenuData.ConvertMenuIDToName(orderList[i]));
-        }
-
     }
 
-    public void SetOrderEventEnabled(bool _enabled)
+    public void SetOrderEventEnabled(bool _enabled) //이벤트 발생 여부 받기
     {
         isGuestOrder = _enabled;
     }
