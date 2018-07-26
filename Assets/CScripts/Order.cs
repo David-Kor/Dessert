@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Order
 {
+    public int orderID;
     public GameObject table;
     public List<int> menuIDList;
-    public bool enabled;    //UI에 적용 여부
+    public bool isComplete;    //UI에 적용 여부
 }

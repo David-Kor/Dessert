@@ -53,30 +53,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CScripts\AccessPositionOfObject.cs" />
      <Compile Include="Assets\CScripts\DayCounter.cs" />
-     <Compile Include="Assets\CScripts\DoorToWarpSpace.cs" />
      <Compile Include="Assets\CScripts\EnumCollection.cs" />
      <Compile Include="Assets\CScripts\EventListener.cs" />
-     <Compile Include="Assets\CScripts\GuestAI\GuestAction.cs" />
-     <Compile Include="Assets\CScripts\GuestAI\GuestConfig.cs" />
+     <Compile Include="Assets\CScripts\Guest\GuestAction.cs" />
+     <Compile Include="Assets\CScripts\Guest\GuestConfig.cs" />
      <Compile Include="Assets\CScripts\MenuData.cs" />
      <Compile Include="Assets\CScripts\MoveCharacter\Field.cs" />
      <Compile Include="Assets\CScripts\MoveCharacter\FieldNavigation.cs" />
      <Compile Include="Assets\CScripts\MoveCharacter\GroundNode.cs" />
      <Compile Include="Assets\CScripts\MoveCharacter\GroundUnit.cs" />
      <Compile Include="Assets\CScripts\MoveCharacter\MyCharacterMove.cs" />
-     <Compile Include="Assets\CScripts\ObjectEventManager.cs" />
+     <Compile Include="Assets\CScripts\Object\AccessPositionOfObject.cs" />
+     <Compile Include="Assets\CScripts\Object\CookingStand.cs" />
+     <Compile Include="Assets\CScripts\Object\DoorToWarpSpace.cs" />
+     <Compile Include="Assets\CScripts\Object\ObjectEventManager.cs" />
+     <Compile Include="Assets\CScripts\Object\PayAtCounter.cs" />
+     <Compile Include="Assets\CScripts\Object\SpawnGuest.cs" />
+     <Compile Include="Assets\CScripts\Object\TableStateManager.cs" />
+     <Compile Include="Assets\CScripts\Object\TransmissionOrder.cs" />
      <Compile Include="Assets\CScripts\Order.cs" />
      <Compile Include="Assets\CScripts\OrderInfoList.cs" />
-     <Compile Include="Assets\CScripts\PayAtCounter.cs" />
      <Compile Include="Assets\CScripts\Player\PlayerCharacterAnimation.cs" />
      <Compile Include="Assets\CScripts\Player\PlayerConfig.cs" />
-     <Compile Include="Assets\CScripts\SpawnGuest.cs" />
      <Compile Include="Assets\CScripts\SpriteOrderLayer.cs" />
-     <Compile Include="Assets\CScripts\TableStateManager.cs" />
-     <Compile Include="Assets\CScripts\TransmissionOrder.cs" />
+     <Compile Include="Assets\CScripts\UI_script\CookingUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\DayLightUI.cs" />
+     <Compile Include="Assets\CScripts\UI_script\KitchenUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\OptionOpenAndClose.cs" />
      <Compile Include="Assets\CScripts\UI_script\ShowD_DayUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\ToggleView.cs" />

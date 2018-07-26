@@ -20,7 +20,7 @@ public class PlayerConfig : MonoBehaviour {
         {
             table = _table,
             menuIDList = _orderList,
-            enabled = false
+            isComplete = false
         });
     }
 

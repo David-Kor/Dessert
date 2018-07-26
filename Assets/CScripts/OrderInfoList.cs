@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class OrderInfoList : MonoBehaviour
 {
-    public LinkedList<Order> orders;
+    public GameObject cookUI;
+    private LinkedList<Order> orders;
+    private LinkedListNode<Order> lastSend;
     private int preCount;
+    private int idCounter;
 
     void Start()
     {
         orders = new LinkedList<Order>();
+        lastSend = null;
         preCount = 0;
+        idCounter = 1;
     }
     void Update()
     {
         if (preCount != orders.Count)
         {
-            TransmissionOrderListToUI();
             preCount = orders.Count;
         }
     }
@@ -25,29 +29,30 @@ public class OrderInfoList : MonoBehaviour
     {
         orders.AddLast(new Order
         {
+            orderID = idCounter++,
             table = _table,
             menuIDList = _idList,
-            enabled = false
+            isComplete = false
         });
+        SendNewOrderListToUI(orders.Last.Value);
+        lastSend = orders.Last;
     }
 
     public void AppendOrder(Order _order)   //Order클래스로 받아 새 Order추가
-    { orders.AddLast(_order); }
-
-    public void TransmissionOrderListToUI()
     {
-        LinkedListNode<Order> node = orders.First;
-        while (node != null)
-        {
+        orders.AddLast(_order);
+        SendNewOrderListToUI(orders.Last.Value);
+        lastSend = orders.Last;
+    }
 
-            for (int i = 0; i < node.Value.menuIDList.Count; i++)
-            {
-                Debug.Log("[" + node.Value.table.GetComponent<TableStateManager>().tableID +
-                    "] : " + MenuData.ConvertMenuIDToName(node.Value.menuIDList[i]));
-            }
-            if (!node.Value.enabled) { node.Value.enabled = true; }
-            node = node.Next;
-        }
+    public LinkedList<Order> GetOrderList() { return orders; }
+
+    public void SendNewOrderListToUI(Order _order)  //CookUI에 주문 정보 전달
+    {
+        bool preActive = cookUI.activeSelf;
+        cookUI.SetActive(true);
+        cookUI.GetComponent<CookingUI>().AppendNodeOrderUI(_order);
+        cookUI.SetActive(preActive);
     }
 
 }

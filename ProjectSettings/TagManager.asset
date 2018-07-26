@@ -18,6 +18,7 @@ TagManager:
   - SpriteInObject
   - Menu
   - OrderList
+  - Marker
   layers:
   - Default
   - TransparentFX
