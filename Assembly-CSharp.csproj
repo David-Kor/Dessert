@@ -78,9 +78,13 @@
      <Compile Include="Assets\CScripts\Player\PlayerConfig.cs" />
      <Compile Include="Assets\CScripts\SpriteOrderLayer.cs" />
      <Compile Include="Assets\CScripts\UI_script\CookingUI.cs" />
+     <Compile Include="Assets\CScripts\UI_script\CookOrderPanelUI.cs" />
+     <Compile Include="Assets\CScripts\UI_script\CookPageUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\DayLightUI.cs" />
+     <Compile Include="Assets\CScripts\UI_script\DetailsPanelUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\KitchenUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\OptionOpenAndClose.cs" />
+     <Compile Include="Assets\CScripts\UI_script\PageButtonUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\ShowD_DayUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\ToggleView.cs" />
      <Compile Include="Assets\iTween\Plugins\Pixelplacement\iTween\iTween.cs" />

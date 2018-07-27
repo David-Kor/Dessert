@@ -145,7 +145,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430335496687274}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 33, z: 0}
+  m_LocalPosition: {x: 0, y: 33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4882226969921916}
@@ -298,12 +298,14 @@ MonoBehaviour:
   frontSprite: {fileID: 21300000, guid: 0085ceb33a94df548ba37f9e0fc90a9b, type: 3}
   backSprite: {fileID: 21300000, guid: 7f7867253564c0247b3ba9a20bd4299f, type: 3}
   sideSprite: {fileID: 21300000, guid: 5541288e0f8098740957a7ec1fbcde35, type: 3}
+  takeOrderSprite: {fileID: 21300000, guid: 5cfd1faccc839af4ab7efdbabc18baa5, type: 3}
   scrubSprite:
   - {fileID: 21300000, guid: 95df456c717ed6d4aa743dedbe5d961d, type: 3}
   - {fileID: 21300000, guid: 8913e1fc9987c2b4a85de24106590d66, type: 3}
   - {fileID: 21300000, guid: f5344b831855d924493e583255080e8d, type: 3}
   isServing: 0
   isScrubbing: 0
+  isTakeOrder: 0
   animationFramePerSec: 15
 --- !u!212 &212094252865862352
 SpriteRenderer:

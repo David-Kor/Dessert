@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52dc15d09f88e94409f50d6d99e9508d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kitchenUI: {fileID: 0}
 --- !u!114 &114550799448815432
 MonoBehaviour:
   m_ObjectHideFlags: 1

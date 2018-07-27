@@ -264,6 +264,18 @@ public class MenuData : MonoBehaviour
         return null;
     }
 
+    public static Menu ConvertMenuIDToMenu(int _id)    //메뉴의 ID를 메뉴 클래스로 변환
+    {
+        for (int i = 0; i < menuList.Count; i++)
+        {
+            if (menuList[i].id == _id)
+            {
+                return menuList[i];
+            }
+        }
+        return null;
+    }
+
     public static string ConvertIngredientSignToName(char _sign)    //재료의 기호(sign)를 이름으로 변환(존재하지 않으면 null반환)
     {
         for (int i = 0; i < ingredList.Count; i++)

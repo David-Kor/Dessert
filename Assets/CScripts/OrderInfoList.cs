@@ -6,14 +6,12 @@ public class OrderInfoList : MonoBehaviour
 {
     public GameObject cookUI;
     private LinkedList<Order> orders;
-    private LinkedListNode<Order> lastSend;
     private int preCount;
     private int idCounter;
 
     void Start()
     {
         orders = new LinkedList<Order>();
-        lastSend = null;
         preCount = 0;
         idCounter = 1;
     }
@@ -35,14 +33,12 @@ public class OrderInfoList : MonoBehaviour
             isComplete = false
         });
         SendNewOrderListToUI(orders.Last.Value);
-        lastSend = orders.Last;
     }
 
     public void AppendOrder(Order _order)   //Order클래스로 받아 새 Order추가
     {
         orders.AddLast(_order);
         SendNewOrderListToUI(orders.Last.Value);
-        lastSend = orders.Last;
     }
 
     public LinkedList<Order> GetOrderList() { return orders; }

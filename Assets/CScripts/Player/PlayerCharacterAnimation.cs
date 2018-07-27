@@ -8,10 +8,12 @@ public class PlayerCharacterAnimation : MonoBehaviour
     public Sprite frontSprite;
     public Sprite backSprite;
     public Sprite sideSprite;
+    public Sprite takeOrderSprite;
     public Sprite[] scrubSprite;
 
     public bool isServing;
     public bool isScrubbing;
+    public bool isTakeOrder;
     public float animationFramePerSec;
 
     private Vector2 scrubbingLocalPos;
@@ -30,6 +32,7 @@ public class PlayerCharacterAnimation : MonoBehaviour
         timer = 0f;
         scrubbingLocalPos = Vector2.up * 0.3f;
         noScrubbingLocalPos = Vector2.up * 0.75f;
+        isTakeOrder = false;
     }
 
     // Update is called once per frame
@@ -44,6 +47,7 @@ public class PlayerCharacterAnimation : MonoBehaviour
             if (characterMove.GetIsMoving())
             {
                 if (isScrubbing) { isScrubbing = false; }
+                if (isTakeOrder) { isTakeOrder = false; }
                 MoveAnimation();
             }
             else
@@ -109,13 +113,22 @@ public class PlayerCharacterAnimation : MonoBehaviour
         SetChildActiveScrubbing(isScrubbing);
 
         direct = Vector2.down;
-        transform.localScale = Vector2.right + Vector2.up;   //원상복귀
+        transform.localScale = Vector2.one;   //원상복귀
 
         if (isServing) { ServingAnimation(); }
+        else if (isScrubbing) { ScrubbingAnimation(); }
 
-        if (isScrubbing) { ScrubbingAnimation(); }
-        GetComponent<SpriteRenderer>().sprite = frontSprite;
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        if (isTakeOrder)
+        {
+            GetComponent<SpriteRenderer>().sprite = takeOrderSprite;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().sprite = frontSprite;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
     }
 
     void ServingAnimation()

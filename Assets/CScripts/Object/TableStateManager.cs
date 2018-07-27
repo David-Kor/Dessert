@@ -146,8 +146,10 @@ public class TableStateManager : MonoBehaviour {
                     if (isGuestOrder && orderList.Count > 0)
                     {   //주문할 메뉴가 정해져 있다면
                         timer += Time.deltaTime;
+                        targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isTakeOrder = true;
                         if (timer >= timeToOrder)
                         {
+                            targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isTakeOrder = false;
                             transform.parent.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
                             for (int i = 0; i < guestGroup.Count; i++)

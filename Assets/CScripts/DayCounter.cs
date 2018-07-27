@@ -8,14 +8,12 @@ public class DayCounter : MonoBehaviour {
     public SEASON currentSeason;
     public GameObject menuDB;
 
-    private float secPerDay;
     private const int DAY_OF_END = 365; //Maximum Day
     private bool dailyInit;
 
 
 	void Start () {
         //Synchronization
-        secPerDay = GetComponentInChildren<DayLightUI>().secPerDay;
         int season = pastDays / dayPerSeason;
 
         season %= 4;    //0~3 : 총 4계절

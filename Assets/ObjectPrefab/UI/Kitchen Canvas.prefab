@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222289081910221118}
   m_Layer: 5
   m_Name: WashUI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 222291244073399268}
   m_Layer: 5
   m_Name: StockUI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 114318604244632634}
   m_Layer: 5
   m_Name: Journal(Option)
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,11 +215,11 @@ GameObject:
   - component: {fileID: 114580473400948634}
   m_Layer: 5
   m_Name: CookUI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1860950130954738
 GameObject:
   m_ObjectHideFlags: 1
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 222310211747148496}
   m_Layer: 5
   m_Name: ProcureUI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -545,6 +545,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderStore: {fileID: 0}
   originPage: {fileID: 1132829900214350, guid: 7bbf9ff241a0093419d013d0d59b3ecb, type: 2}
+  originButton: {fileID: 1016926323990654, guid: b69a4f13869fff84b9aa20c1e4113e65,
+    type: 2}
   currentPage: {fileID: 0}
 --- !u!114 &114650201453722178
 MonoBehaviour:
@@ -843,7 +845,7 @@ RectTransform:
   m_GameObject: {fileID: 1067766453979928}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0001999, y: 1.0001999, z: 1.0001999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224475197502955488}
   m_RootOrder: 3
@@ -897,7 +899,7 @@ RectTransform:
   m_GameObject: {fileID: 1860950130954738}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0001999, y: 1.0001999, z: 1.0001999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224475197502955488}
   m_RootOrder: 2
@@ -915,7 +917,7 @@ RectTransform:
   m_GameObject: {fileID: 1006729738013190}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0001999, y: 1.0001999, z: 1.0001999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224475197502955488}
   m_RootOrder: 4

@@ -5,6 +5,7 @@ using TITLE = EnumCollection.TITLE;
 
 public class CookingStand : MonoBehaviour {
     public GameObject kitchenUI;
+    private bool doWork;
     private GameObject targetPlayer;
     private GameObject accessGround;
     private GameObject marker;
@@ -21,6 +22,7 @@ public class CookingStand : MonoBehaviour {
             GetComponent<ObjectEventManager>().doEvent = false;
             //Marker 활성화/비활성화
             marker.GetComponent<SpriteRenderer>().enabled = !marker.GetComponent<SpriteRenderer>().enabled;
+            Camera.main.GetComponent<EventListener>().ResetSelectPlayer();
 
             if (marker.GetComponent<SpriteRenderer>().enabled)
             {
@@ -31,14 +33,9 @@ public class CookingStand : MonoBehaviour {
                 kitchenUI.GetComponent<KitchenUI>().ChangeViewUI(TITLE.NONE);   //Marker 비활성화 시 주방의 UI를 초기화
             }
 
-            if (targetPlayer == null)
-            {
-                targetPlayer = GetComponent<ObjectEventManager>().currentPlayer;
-            }
-            if (targetPlayer != null)
-            {
-                accessGround = GetAccessGround();
-                targetPlayer.GetComponent<MyCharacterMove>().MoveThisGround(accessGround);
+            if (doWork && targetPlayer != null)
+            {   //targetPlayer를 지정할 필요 있음 (18.07.27 - 11:12)
+                targetPlayer.GetComponent<MyCharacterMove>().MoveThisGround(GetAccessGround());
             }
         }
 	}
@@ -56,6 +53,12 @@ public class CookingStand : MonoBehaviour {
         }
 
         return null;
+    }
+
+    public void StartCookingThisPlayer(GameObject _player)  //조리 시작 명령을 받음
+    {
+        targetPlayer = _player;
+        doWork = true;
     }
 
 }

@@ -4,35 +4,49 @@ using UnityEngine;
 
 public class TransmissionOrder : MonoBehaviour
 {
-    private GameObject targetPlayer;
+    private List<GameObject> targetPlayer;
     private GameObject deskGround;
-    private bool doWork;
+    private List<bool> doWork;
 
     // Use this for initialization
     void Start()
     {
-        targetPlayer = null;
-        doWork = false;
+        targetPlayer = new List<GameObject>();
+        doWork = new List<bool>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        int i = 0;
+
         if (GetComponent<ObjectEventManager>().doEvent)
         {   //이벤트 매니저 플래그 발생
-            targetPlayer = GetComponent<ObjectEventManager>().currentPlayer;
+            if (!targetPlayer.Contains(GetComponent<ObjectEventManager>().currentPlayer))
+            {
+                targetPlayer.Add(GetComponent<ObjectEventManager>().currentPlayer);
+                doWork.Add(false);
+            }
+
             deskGround = GetDeskGround();
             GetComponent<ObjectEventManager>().doEvent = false;
-            if (targetPlayer != null)
-            {   //대상 플레이어 이동
-                doWork = true;
-                targetPlayer.GetComponent<MyCharacterMove>().MoveThisGround(deskGround);
+
+            for (i = 0; i < targetPlayer.Count; i++)
+            {
+                if (targetPlayer[i] != null)
+                {   //대상 플레이어 이동
+                    doWork[i] = true;
+                    targetPlayer[i].GetComponent<MyCharacterMove>().MoveThisGround(deskGround);
+                }
             }
         }
 
-        if (doWork && targetPlayer != null)
-        {   //이벤트에 대한 처리
-            ProcessingEvent();
+        for (i = 0; i < targetPlayer.Count; i++)
+        {
+            if (doWork[i] && targetPlayer[i] != null)
+            {   //이벤트에 대한 처리
+                ProcessingEvent(i);
+            }
         }
     }
 
@@ -48,18 +62,24 @@ public class TransmissionOrder : MonoBehaviour
         return null;
     }
 
-    private void ProcessingEvent()
+    private void ProcessingEvent(int _index)    //이벤트 처리
     {
-        if (targetPlayer.GetComponent<MyCharacterMove>().GetTargetGround() != deskGround)
+        if (targetPlayer[_index].GetComponent<MyCharacterMove>().GetTargetGround() != deskGround)
         {   //대상 플레이어의 목적지가 바뀌면
-            doWork = false;
+            doWork[_index] = false;
+            targetPlayer.RemoveAt(_index);
+            doWork.RemoveAt(_index);
+            return;
         }
 
-        if (targetPlayer.transform.position == deskGround.transform.position)
+        if (targetPlayer[_index].transform.position == deskGround.transform.position)
         {   //플레이어가 도착하면
-            targetPlayer.GetComponent<PlayerConfig>().SendOrderToUI();
-            targetPlayer = null;
-            doWork = false;
+            targetPlayer[_index].GetComponent<PlayerConfig>().SendOrderToUI();
+            targetPlayer.RemoveAt(_index);
+            doWork.RemoveAt(_index);
         }
+
     }
+
+
 }
