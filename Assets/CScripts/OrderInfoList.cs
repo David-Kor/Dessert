@@ -47,7 +47,7 @@ public class OrderInfoList : MonoBehaviour
     {
         bool preActive = cookUI.activeSelf;
         cookUI.SetActive(true);
-        cookUI.GetComponent<CookingUI>().AppendNodeOrderUI(_order);
+        cookUI.GetComponent<CookingUI>().AppendOrderUI(_order);
         cookUI.SetActive(preActive);
     }
 

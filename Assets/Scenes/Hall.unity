@@ -2778,6 +2778,16 @@ Prefab:
       propertyPath: kitchenUI
       value: 
       objectReference: {fileID: 1705520495}
+    - target: {fileID: 61208810352414774, guid: 6eaa01b993e905c44a192c0c1538a896,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 2.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 61208810352414774, guid: 6eaa01b993e905c44a192c0c1538a896,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6eaa01b993e905c44a192c0c1538a896, type: 2}
   m_IsPrefabAsset: 0

@@ -6,7 +6,6 @@ public class CookPageUI : MonoBehaviour
 {
     /* [] : current Class */
     /* 부모 Object ────────────────────> 자식 Object */
-    /* Kitchen UI > CookUI > [ PageUI ] + PageButton > OrderPanelUI > DetailPanelUI */
-
-
+    /* Kitchen UI > CookUI > [ PageUI ] + PageButton > OrderPanelUI > DetailPanelUI > SelectPlayerPanelUI */
+    
 }

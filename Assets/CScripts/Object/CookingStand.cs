@@ -5,18 +5,32 @@ using TITLE = EnumCollection.TITLE;
 
 public class CookingStand : MonoBehaviour {
     public GameObject kitchenUI;
-    private bool doWork;
+    private bool doWorkEvent;
+    private bool doCook;
     private GameObject targetPlayer;
     private GameObject accessGround;
     private GameObject marker;
+    private MenuData.Menu menu;
+    private float timer;
 
     void Start()
     {
         targetPlayer = null;
+        menu = null;
         marker = transform.parent.GetChild(1).gameObject;
+        timer = 0f;
     }
-	
-	void Update () {
+
+    void Update()
+    {
+
+        if (GetComponent<ObjectEventManager>().doCancel)    //선택 취소
+        {
+            GetComponent<ObjectEventManager>().doCancel = false;
+            marker.GetComponent<SpriteRenderer>().enabled = false;
+            kitchenUI.GetComponent<KitchenUI>().ChangeViewUI(TITLE.NONE);
+        }
+
         if (GetComponent<ObjectEventManager>().doEvent) //클릭 이벤트 발생
         {
             GetComponent<ObjectEventManager>().doEvent = false;
@@ -33,16 +47,29 @@ public class CookingStand : MonoBehaviour {
                 kitchenUI.GetComponent<KitchenUI>().ChangeViewUI(TITLE.NONE);   //Marker 비활성화 시 주방의 UI를 초기화
             }
 
-            if (doWork && targetPlayer != null)
-            {   //targetPlayer를 지정할 필요 있음 (18.07.27 - 11:12)
-                targetPlayer.GetComponent<MyCharacterMove>().MoveThisGround(GetAccessGround());
+        }
+
+        if (targetPlayer != null)
+        {
+            if (doWorkEvent)    //작업 이벤트 발생
+            {
+                doWorkEvent = false;
+                doCook = true;
+                accessGround = GetAccessGround();
+                targetPlayer.GetComponent<MyCharacterMove>().MoveThisGround(accessGround);
+            }
+
+            if (doCook && menu != null)
+            {
+                ProcessingWorkEvent();
             }
         }
-	}
+
+    }
 
     GameObject GetAccessGround()
     {
-        RaycastHit2D[] hit = Physics2D.RaycastAll((Vector2)transform.parent.GetChild(2).position, Vector2.zero);
+        RaycastHit2D[] hit = Physics2D.RaycastAll(transform.parent.GetChild(2).position, Vector2.zero);
 
         for (int i = 0; i < hit.Length; i++)
         {
@@ -55,10 +82,43 @@ public class CookingStand : MonoBehaviour {
         return null;
     }
 
-    public void StartCookingThisPlayer(GameObject _player)  //조리 시작 명령을 받음
+    void ProcessingWorkEvent()
+    {
+        if (targetPlayer.GetComponent<MyCharacterMove>().GetTargetGround() != accessGround)     //목적지가 바뀌면
+        {
+            doCook = false;
+            targetPlayer = null;
+            timer = 0;
+            return;
+        }
+
+        if (targetPlayer.transform.position == accessGround.transform.position)
+        {
+            StartCookMenu();
+        }
+
+    }
+
+    public void OrderCookingToPlayer(GameObject _player, MenuData.Menu _menu)  //요리 시작 명령을 받음
     {
         targetPlayer = _player;
-        doWork = true;
+        doWorkEvent = true;
+        menu = _menu;
+        Debug.Log(_player.name);
+    }
+
+    public void StartCookMenu()   //요리 명령에 관한 처리
+    {
+        timer += Time.deltaTime;
+        targetPlayer.GetComponent<PlayerCharacterAnimation>().isWorking = true;
+
+        if (timer >= menu.time)
+        {
+            targetPlayer.GetComponent<PlayerCharacterAnimation>().isWorking = false;
+            doCook = false;
+            targetPlayer = null;
+            timer = 0f;
+        }
     }
 
 }

@@ -6,6 +6,10 @@ using TITLE = EnumCollection.TITLE;
 
 public class KitchenUI : MonoBehaviour
 {
+    /* [] : current Class */
+    /* 부모 Object ────────────────────> 자식 Object */
+    /* [ Kitchen UI ] > CookUI > PageUI + PageButton > OrderPanelUI > DetailPanelUI > SelectPlayerPanelUI */
+
     private GameObject titlePanel;
     private GameObject[] uiPanel;
 
@@ -61,6 +65,11 @@ public class KitchenUI : MonoBehaviour
             case TITLE.NONE:
                 index = (int)TITLE.NONE;
                 titlePanel.GetComponentInChildren<Text>().text = "";
+                CookOrderPanelUI[] orderPanels = GetComponentsInChildren<CookOrderPanelUI>();
+                for (int i = 0; i < orderPanels.Length; i++)
+                {
+                    orderPanels[i].ResetDetails();
+                }
                 break;
         }
 

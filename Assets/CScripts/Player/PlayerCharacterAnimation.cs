@@ -14,6 +14,7 @@ public class PlayerCharacterAnimation : MonoBehaviour
     public bool isServing;
     public bool isScrubbing;
     public bool isTakeOrder;
+    public bool isWorking;
     public float animationFramePerSec;
 
     private Vector2 scrubbingLocalPos;
@@ -115,19 +116,17 @@ public class PlayerCharacterAnimation : MonoBehaviour
         direct = Vector2.down;
         transform.localScale = Vector2.one;   //원상복귀
 
+        //서빙
         if (isServing) { ServingAnimation(); }
-        else if (isScrubbing) { ScrubbingAnimation(); }
+        //테이블 청소
+        if (isScrubbing) { ScrubbingAnimation(); }
 
-        if (isTakeOrder)
-        {
-            GetComponent<SpriteRenderer>().sprite = takeOrderSprite;
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().sprite = frontSprite;
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+        //주문 받기
+        if (isTakeOrder) { GetComponent<SpriteRenderer>().sprite = takeOrderSprite; }
+        //작업 진행(주방)
+        else if (isWorking) { GetComponent<SpriteRenderer>().sprite = backSprite; }
+        //평상시
+        else { GetComponent<SpriteRenderer>().sprite = frontSprite; }
 
     }
 

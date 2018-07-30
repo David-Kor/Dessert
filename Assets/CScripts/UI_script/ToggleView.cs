@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TITLE = EnumCollection.TITLE;
 
 public class ToggleView : MonoBehaviour {
     public Camera hallCamera;
@@ -82,6 +83,8 @@ public class ToggleView : MonoBehaviour {
             spriteInKitchen[i].enabled = false;
         }
 
+        GameObject.Find("KitchenUI").GetComponent<KitchenUI>().ChangeViewUI(TITLE.NONE);
+        ObjectEventManager.CancelAllSelectObject();
     }
 
 }

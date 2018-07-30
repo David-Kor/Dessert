@@ -41,13 +41,14 @@ public class EventListener : MonoBehaviour
                 {
                     selectedPlayer.GetComponent<MyCharacterMove>().MoveThisGround(selectedGround);
                 }
-
+                
+                //플레이어를 제외한 오브젝트들의 종합 이벤트 처리 함수 호출
                 if (selectedOtherObject != null)
-                {   //플레이어를 제외한 종합 오브젝트 함수
+                {
                     selectedOtherObject.GetComponent<ObjectEventManager>().OnClickThisObject(selectedPlayer);
                 }
             }
-
+            
         }
 
         if (Input.GetButtonDown("Cancel") && selectedPlayer != null)
@@ -57,6 +58,7 @@ public class EventListener : MonoBehaviour
             selectedPlayer = null;
             selectedGround = null;
             selectedOtherObject = null;
+            ObjectEventManager.CancelAllSelectObject();
         }
 
     }
@@ -75,6 +77,8 @@ public class EventListener : MonoBehaviour
                 {
                     if (hit[i].transform.parent.gameObject != selectedPlayer) { isClickPlayer = true; }  //이전에 선택한 캐릭터와 다른 캐릭터를 클릭한 경우
                     else { isClickPlayer = false; }  //이전 선택한 캐릭터와 동일한 캐릭터를 클릭한 경우
+
+                    if (isClickPlayer) { ObjectEventManager.CancelAllSelectObject(); }  //오브젝트 선택해제
 
                     selectedPlayer = hit[i].collider.gameObject.transform.parent.gameObject;
                     selectedPlayer.transform.GetChild(1).gameObject.SetActive(true);

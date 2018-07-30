@@ -7,7 +7,7 @@ public class CookingUI : MonoBehaviour
 {
     /* [] : current Class */
     /* 부모 Object ────────────────────> 자식 Object */
-    /* Kitchen UI > [ CookUI ] > PageUI + PageButton > OrderPanelUI > DetailPanelUI */
+    /* Kitchen UI > [ CookUI ] > PageUI + PageButton > OrderPanelUI > DetailPanelUI > SelectPlayerPanelUI */
 
     public GameObject orderStore;
     public GameObject originPage;
@@ -31,16 +31,12 @@ public class CookingUI : MonoBehaviour
         orders = orderStore.GetComponent<OrderInfoList>().GetOrderList();
     }
 
-    void Update()
-    {
 
-    }
-
-    public void AppendNodeOrderUI(Order _order)
+    public void AppendOrderUI(Order _order)
     {
         LinkedListNode<GameObject> pageNode = pageList.First;
         int menuIndex = 0;
-
+        
         //페이지 단위 반복
         while (menuIndex < _order.menuIDList.Count)
         {
@@ -87,10 +83,7 @@ public class CookingUI : MonoBehaviour
 
     void WriteOrderInfo(GameObject _panelUI, Order _order, int _menuIndex)   //패널 UI에 주문 정보 작성
     {
-        string tableID = _order.table.GetComponent<TableStateManager>().tableID.ToString() + " T";
-        string name = MenuData.ConvertMenuIDToName(_order.menuIDList[_menuIndex]);
-
-        _panelUI.GetComponent<CookOrderPanelUI>().OrderPanelTextWrite(tableID, name, _order.menuIDList[_menuIndex]);
+        _panelUI.GetComponent<CookOrderPanelUI>().OrderPanelTextWrite(_order, _menuIndex);
     }
 
     public void SetCurrentPage(GameObject _page)    //현재 보여줄 페이지를 설정
