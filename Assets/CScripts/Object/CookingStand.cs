@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TITLE = EnumCollection.TITLE;
 
-public class CookingStand : MonoBehaviour {
+public class CookingStand : MonoBehaviour
+{
     public GameObject kitchenUI;
     private bool doWorkEvent;
     private bool doCook;
+    private bool endCook;
     private GameObject targetPlayer;
     private GameObject accessGround;
     private GameObject marker;
@@ -59,9 +59,11 @@ public class CookingStand : MonoBehaviour {
                 targetPlayer.GetComponent<MyCharacterMove>().MoveThisGround(accessGround);
             }
 
-            if (doCook && menu != null)
+            if (doCook && menu != null) { ProcessingWorkEvent(); }
+            else if (endCook)
             {
-                ProcessingWorkEvent();
+                endCook = false;
+                CompleteCookMenu();
             }
         }
 
@@ -99,26 +101,42 @@ public class CookingStand : MonoBehaviour {
 
     }
 
-    public void OrderCookingToPlayer(GameObject _player, MenuData.Menu _menu)  //요리 시작 명령을 받음
+    void CompleteCookMenu()
     {
-        targetPlayer = _player;
-        doWorkEvent = true;
-        menu = _menu;
-        Debug.Log(_player.name);
+        targetPlayer = null;
+        timer = 0;
+        bool preActive = kitchenUI.transform.GetChild((int)TITLE.COOK + 1).gameObject.activeSelf;   //원래 활성화 상태 저장
+        kitchenUI.transform.GetChild((int)TITLE.COOK + 1).gameObject.SetActive(true);
+        CookingUI cookingUI = kitchenUI.GetComponentInChildren<CookingUI>();
+        GameObject orderPanel = cookingUI.FindMenuInOrderPanel(menu);
+        orderPanel.GetComponent<CookOrderPanelUI>().CompleteThisOrder();
+        kitchenUI.transform.GetChild((int)TITLE.COOK + 1).gameObject.SetActive(preActive);
+        menu = null;
     }
 
-    public void StartCookMenu()   //요리 명령에 관한 처리
+    void StartCookMenu()   //요리 명령에 관한 처리
     {
         timer += Time.deltaTime;
-        targetPlayer.GetComponent<PlayerCharacterAnimation>().isWorking = true;
+        targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isWorking = true;
 
         if (timer >= menu.time)
         {
-            targetPlayer.GetComponent<PlayerCharacterAnimation>().isWorking = false;
+            targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isWorking = false;
             doCook = false;
-            targetPlayer = null;
-            timer = 0f;
+            endCook = true;
         }
     }
+
+    public void OrderCookingToPlayer(GameObject _player, MenuData.Menu _menu)  //요리 시작 명령을 받음
+    {
+        if (_menu != null && _player != null && !doCook)
+        {
+            targetPlayer = _player;
+            doWorkEvent = true;
+            menu = _menu;
+        }
+    }
+
+
 
 }

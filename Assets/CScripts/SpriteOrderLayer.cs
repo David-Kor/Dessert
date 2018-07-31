@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpriteOrderLayer : MonoBehaviour
 {
-    // Use this for initialization
+    private Vector2 prePosition;
+
     void Start()
     {
+        prePosition = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(transform.parent.position.y * 10) * -1;
+        //위치가 바뀔 때마다 sortingOrder값을 변경 (y에 반비례)
+        if (prePosition != (Vector2)transform.position) { GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(transform.parent.position.y * 10) * -1; }
     }
 
 

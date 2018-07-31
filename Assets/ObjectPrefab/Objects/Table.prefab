@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 114387564748533514}
   - component: {fileID: 114524563227532680}
   - component: {fileID: 114833512298632164}
-  - component: {fileID: 60446945022133092}
   m_Layer: 0
   m_Name: SpriteTable
   m_TagString: SpriteInObject
@@ -106,49 +105,6 @@ Transform:
   m_Father: {fileID: 4592369571020322}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &60446945022133092
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1600274975115554}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0.32999998, y: 1.03, z: 0.34, w: 0.94}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 2.44}
-    newSize: {x: 1.5, y: 2.44}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.19999999, y: -0.12}
-      - {x: 0.08, y: 0.03}
-      - {x: 0.29999998, y: 0.03}
-      - {x: 0.42999998, y: 0.11}
-      - {x: 0.42999998, y: 0.21}
-      - {x: 0.42, y: 0.24}
-      - {x: 0.19, y: 0.29999998}
-      - {x: -0.17, y: 0.29999998}
-      - {x: -0.35, y: 0.26999998}
-      - {x: -0.44, y: 0.19}
-      - {x: -0.44, y: 0.12}
-      - {x: -0.34, y: 0.04}
-      - {x: -0.099999994, y: 0.02}
-      - {x: -0.32999998, y: -0.21}
-      - {x: -0.22999999, y: -0.29999998}
-      - {x: 0.14999999, y: -0.29999998}
-      - {x: 0.22, y: -0.26999998}
-      - {x: 0.29, y: -0.25}
-      - {x: 0.29, y: -0.14}
 --- !u!60 &60674814444319400
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -173,18 +129,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.21277046, y: -0.19889128}
-      - {x: 0.1711874, y: -0.021027297}
-      - {x: 0.43356657, y: 0.0739539}
-      - {x: 0.48038816, y: 0.19330692}
-      - {x: 0.33479977, y: 0.2995388}
-      - {x: 0.044757843, y: 0.34166104}
-      - {x: -0.21005249, y: 0.31347618}
-      - {x: -0.44106483, y: 0.20665944}
+    - - {x: 0.2441864, y: -0.18731692}
+      - {x: 0.19807148, y: -0.022322118}
+      - {x: 0.39905357, y: 0.03023693}
+      - {x: 0.44357395, y: 0.124280155}
+      - {x: 0.44754362, y: 0.27652988}
+      - {x: 0.0033416748, y: 0.3485637}
+      - {x: -0.44796753, y: 0.2756862}
       - {x: -0.44470406, y: 0.11648351}
-      - {x: -0.37525892, y: 0.027087927}
-      - {x: -0.1634922, y: -0.026758343}
-      - {x: -0.21741867, y: -0.20181441}
+      - {x: -0.39366627, y: 0.027087927}
+      - {x: -0.19864321, y: -0.02539359}
+      - {x: -0.24883461, y: -0.19520047}
       - {x: -0.17348719, y: -0.23117292}
       - {x: 0.18439198, y: -0.22883809}
 --- !u!61 &61305496903954112
@@ -262,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doEvent: 0
+  doCancel: 0
   currentPlayer: {fileID: 0}
 --- !u!212 &212177918086108566
 SpriteRenderer:

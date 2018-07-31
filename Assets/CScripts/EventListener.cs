@@ -39,16 +39,21 @@ public class EventListener : MonoBehaviour
                 //플레이어 오브젝트의 이동
                 if (selectedPlayer != null && selectedGround != null && !isClickPlayer)
                 {
-                    selectedPlayer.GetComponent<MyCharacterMove>().MoveThisGround(selectedGround);
+                    if (!selectedPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isWorking)
+                    {   //작업중이 아니라면
+                        selectedPlayer.GetComponent<MyCharacterMove>().MoveThisGround(selectedGround);
+                    }
                 }
-                
+
                 //플레이어를 제외한 오브젝트들의 종합 이벤트 처리 함수 호출
                 if (selectedOtherObject != null)
                 {
                     selectedOtherObject.GetComponent<ObjectEventManager>().OnClickThisObject(selectedPlayer);
                 }
             }
-            
+
+            selectedOtherObject = null;
+            selectedGround = null;
         }
 
         if (Input.GetButtonDown("Cancel") && selectedPlayer != null)
@@ -78,7 +83,7 @@ public class EventListener : MonoBehaviour
                     if (hit[i].transform.parent.gameObject != selectedPlayer) { isClickPlayer = true; }  //이전에 선택한 캐릭터와 다른 캐릭터를 클릭한 경우
                     else { isClickPlayer = false; }  //이전 선택한 캐릭터와 동일한 캐릭터를 클릭한 경우
 
-                    if (isClickPlayer) { ObjectEventManager.CancelAllSelectObject(); }  //오브젝트 선택해제
+                    if (isClickPlayer) { ObjectEventManager.CancelAllSelectObject(); }  //전체 오브젝트 선택해제
 
                     selectedPlayer = hit[i].collider.gameObject.transform.parent.gameObject;
                     selectedPlayer.transform.GetChild(1).gameObject.SetActive(true);
@@ -90,8 +95,6 @@ public class EventListener : MonoBehaviour
                             playableCharacterObjects[j].transform.GetChild(1).gameObject.SetActive(false);
                         }
                     }
-
-                    //break;
                 }
                 else
                 {
@@ -118,7 +121,7 @@ public class EventListener : MonoBehaviour
 
     }   //hit처리 완료
 
-    public void ResetSelectPlayer()
+    public void ResetSelectPlayer() //플레이어의 선택을 취소합니다.
     {
         if (selectedPlayer != null) { selectedPlayer.transform.GetChild(1).gameObject.SetActive(false); }
         selectedPlayer = null;

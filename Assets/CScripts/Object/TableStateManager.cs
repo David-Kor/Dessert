@@ -10,7 +10,9 @@ public class TableStateManager : MonoBehaviour {
     public float timeToScrub;
     public float timeToOrder;
     public List<GameObject> guestGroup;
-    public static int MAX_ORDER_COUNT = 2;
+
+    const int MAX_MENU_COUNT = 2;   //한 손님당 받아올 메뉴의 최대 개수
+    const int TABLE_ORDER_COUNT = 2;    //한 테이블당 주문할 수 있는 메뉴의 개수
 
     private T_STATE preState;
     private bool doWork;
@@ -173,15 +175,16 @@ public class TableStateManager : MonoBehaviour {
         int j = 0;
         MenuData menuData = GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuData>();
         GuestConfig config = null;
+        List<int> myMenu = null;
 
         for (i = 0; i < guestGroup.Count; i++)
         {
             config = guestGroup[i].GetComponent<GuestAction>().GetGuestConfig();    //그룹에 속한 손님의 정보를 받아옴
-            List<int> myMenu = menuData.GetIDsContainsIngredients(config.favorite, MAX_ORDER_COUNT);
+            myMenu = menuData.GetIDsContainsIngredients(config.favorite, MAX_MENU_COUNT);
 
             for (j = 0; j < myMenu.Count; j++)
             {
-                if (!menuData.GetMenu(myMenu[j]).enabled)
+                if (!MenuData.ConvertMenuIDToMenu(myMenu[j]).enabled)
                 {   //비활성화 메뉴는 제거
                     myMenu.RemoveAt(j);
                     j--;
@@ -193,12 +196,17 @@ public class TableStateManager : MonoBehaviour {
                 int rand = Random.Range(0, menuData.enableMenus.Count);
                 myMenu.Add(menuData.enableMenus[rand].id);
             }
+        }
 
-            //메뉴 병합(중복 허용)
-            for (j = 0; j < myMenu.Count; j++)
-            {
-                orderList.Add(myMenu[j]);
-            }
+        //메뉴 병합(중복 허용)
+        for (i = 0; i < myMenu.Count; i++)
+        {
+            orderList.Add(myMenu[i]);
+        }
+
+        while (orderList.Count > TABLE_ORDER_COUNT) //테이블 당 최대 주문 개수 맞추기
+        {
+            orderList.RemoveAt(Random.Range(0, orderList.Count));
         }
 
     }

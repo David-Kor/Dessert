@@ -288,13 +288,5 @@ public class MenuData : MonoBehaviour
         return null;
     }
 
-    public Menu GetMenu(int _id)    //id로 메뉴 검색 후 반환, 실패 시 null 반환
-    {
-        for (int i = 0; i < menuList.Count; i++)
-        {
-            if (menuList[i].id == _id) { return menuList[i]; }
-        }
 
-        return null;
-    }
 }

@@ -10,6 +10,7 @@ public class CookPlayerSelectButtonUI : MonoBehaviour
 
     private GameObject[] players;
     private GameObject cookingStand;
+    private GameObject selectedPlayer;
 
     void Start()
     {
@@ -23,8 +24,17 @@ public class CookPlayerSelectButtonUI : MonoBehaviour
         {
             if (transform.GetChild(i).gameObject == _selectButton)
             {
-                cookingStand.GetComponentInChildren<CookingStand>().OrderCookingToPlayer(players[i], GetComponentInParent<DetailsPanelUI>().menu);
+                selectedPlayer = players[i];
             }
+        }
+    }
+
+    public void SubmitSelectPlayer()
+    {
+        if (selectedPlayer != null)
+        {
+            cookingStand.GetComponentInChildren<CookingStand>().OrderCookingToPlayer(selectedPlayer, GetComponentInParent<DetailsPanelUI>().menu);
+            selectedPlayer = null;
         }
     }
 

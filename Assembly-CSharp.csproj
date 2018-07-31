@@ -88,6 +88,7 @@
      <Compile Include="Assets\CScripts\UI_script\PageButtonUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\PlayerSelectButton.cs" />
      <Compile Include="Assets\CScripts\UI_script\ShowD_DayUI.cs" />
+     <Compile Include="Assets\CScripts\UI_script\SubmitButton.cs" />
      <Compile Include="Assets\CScripts\UI_script\ToggleView.cs" />
      <Compile Include="Assets\iTween\Plugins\Pixelplacement\iTween\iTween.cs" />
      <Compile Include="Assets\iTween\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
