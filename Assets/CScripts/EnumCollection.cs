@@ -5,5 +5,5 @@
     public enum PLATE { DISH, CUP }
     public enum T_STATE { CLEAR, USING, DIRTY, RESERVED }
     public enum G_STATE { MOVE, HOLD, SIT, ORDER, WAIT, EAT, PAY }
-    public enum TITLE { COOK, STOCK, WASH, PROCURE, NONE }
+    public enum TITLE { COOK, STORAGE, DISHING, BUY, NONE }
 }

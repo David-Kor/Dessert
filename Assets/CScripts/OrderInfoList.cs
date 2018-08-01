@@ -30,7 +30,6 @@ public class OrderInfoList : MonoBehaviour
             orderID = idCounter++,
             table = _table,
             menuIDList = _idList,
-            isComplete = false
         });
         SendNewOrderListToUI(orders.Last.Value);
     }

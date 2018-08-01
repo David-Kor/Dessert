@@ -27,7 +27,7 @@ public class CookingUI : MonoBehaviour
         pageList.AddFirst(Instantiate(originPage, transform));  //초기 1페이지 생성
         pageList.First.Value.transform.GetChild(0).gameObject.SetActive(true);  //1번째 패널 활성화
         CookOrderPanelUI.firstPageFirstPanel = pageList.First.Value.transform.GetChild(0).gameObject;    //1페이지 1번째 패널 저장(static)
-        buttonList.AddFirst(Instantiate(originButton, transform)).Value.GetComponent<PageButtonUI>().myPage = pageList.First.Value;  //1페이지 버튼 생성
+        buttonList.AddFirst(Instantiate(originButton, transform)).Value.GetComponent<CookPageButtonUI>().myPage = pageList.First.Value;  //1페이지 버튼 생성
         currentPage = pageList.First.Value;
         currentPage.SetActive(true);
     }
@@ -81,7 +81,7 @@ public class CookingUI : MonoBehaviour
                 pageList.AddLast(Instantiate(originPage, transform));
                 buttonList.AddLast(Instantiate(originButton, transform)).Value.transform.localPosition += Vector3.right * 70.0f * (buttonList.Count - 1);
                 buttonList.Last.Value.GetComponentInChildren<Text>().text = buttonList.Count.ToString();
-                buttonList.Last.Value.GetComponent<PageButtonUI>().myPage = pageList.Last.Value;
+                buttonList.Last.Value.GetComponent<CookPageButtonUI>().myPage = pageList.Last.Value;
             }
 
             pageNode = pageNode.Next;

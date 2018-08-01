@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PageButtonUI : MonoBehaviour
+public class CookPageButtonUI : MonoBehaviour
 {
     /* [] : current Class */
     /* 부모 Object ────────────────────> 자식 Object */

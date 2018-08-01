@@ -6,6 +6,7 @@ public class SpriteOrderLayer : MonoBehaviour
 
     void Start()
     {
+        GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(transform.parent.position.y * 10) * -1;
         prePosition = transform.position;
     }
 

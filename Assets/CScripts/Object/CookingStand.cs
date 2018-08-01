@@ -28,15 +28,15 @@ public class CookingStand : MonoBehaviour
         {
             GetComponent<ObjectEventManager>().doCancel = false;
             marker.GetComponent<SpriteRenderer>().enabled = false;
-            kitchenUI.GetComponent<KitchenUI>().ChangeViewUI(TITLE.NONE);
         }
 
         if (GetComponent<ObjectEventManager>().doEvent) //클릭 이벤트 발생
         {
+            ObjectEventManager.CancelAllSelectWithOutObject(transform.parent.gameObject);  //다른 오브젝트 선택 해제
+            Camera.main.GetComponent<EventListener>().ResetSelectPlayer();  //플레이어 선택 해제
             GetComponent<ObjectEventManager>().doEvent = false;
             //Marker 활성화/비활성화
             marker.GetComponent<SpriteRenderer>().enabled = !marker.GetComponent<SpriteRenderer>().enabled;
-            Camera.main.GetComponent<EventListener>().ResetSelectPlayer();
 
             if (marker.GetComponent<SpriteRenderer>().enabled)
             {
@@ -101,7 +101,7 @@ public class CookingStand : MonoBehaviour
 
     }
 
-    void CompleteCookMenu()
+    void CompleteCookMenu() //요리 완료
     {
         targetPlayer = null;
         timer = 0;

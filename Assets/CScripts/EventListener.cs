@@ -71,6 +71,8 @@ public class EventListener : MonoBehaviour
     void CastRayOnMouseClick() // 유닛 히트처리 부분.  레이를 쏴서 처리합니다. 
     {
         RaycastHit2D[] hit = Physics2D.RaycastAll(clickPos, Vector2.zero, 0f);
+        bool onHitPlayer = false;
+        bool onHitObject = false;
 
         if (hit.Length > 0)
         { //히트되었다면 여기서 실행
@@ -80,10 +82,9 @@ public class EventListener : MonoBehaviour
                 //플레이어가 선택된 경우
                 if (hit[i].collider.gameObject.CompareTag("Player"))
                 {
+                    onHitPlayer = true;
                     if (hit[i].transform.parent.gameObject != selectedPlayer) { isClickPlayer = true; }  //이전에 선택한 캐릭터와 다른 캐릭터를 클릭한 경우
                     else { isClickPlayer = false; }  //이전 선택한 캐릭터와 동일한 캐릭터를 클릭한 경우
-
-                    if (isClickPlayer) { ObjectEventManager.CancelAllSelectObject(); }  //전체 오브젝트 선택해제
 
                     selectedPlayer = hit[i].collider.gameObject.transform.parent.gameObject;
                     selectedPlayer.transform.GetChild(1).gameObject.SetActive(true);
@@ -98,7 +99,11 @@ public class EventListener : MonoBehaviour
                 }
                 else
                 {
-                    if (hit[i].collider.gameObject.CompareTag("SpriteInObject")) { selectedOtherObject = hit[i].collider.gameObject; }   //특정 오브젝트인 경우
+                    if (hit[i].collider.gameObject.CompareTag("SpriteInObject"))    //특정 오브젝트인 경우
+                    {
+                        selectedOtherObject = hit[i].collider.gameObject;
+                        onHitObject = true;
+                    }
 
                     if (hit[i].collider.gameObject.CompareTag("Ground"))
                     {
@@ -115,6 +120,22 @@ public class EventListener : MonoBehaviour
                 }
 
             }  //for문 끝
+
+            if (onHitPlayer && onHitObject)
+            {   //플레이어와 오브젝트가 동시에 클릭된 경우 (스프라이트 곂쳐짐)
+                //스프라이트가 뒤쪽인 오브젝트를 무시함
+                if (selectedPlayer.GetComponentInChildren<SpriteRenderer>().sortingOrder
+                    >= selectedOtherObject.GetComponent<SpriteRenderer>().sortingOrder)
+                {
+                    ObjectEventManager.CancelAllSelectObject(); //전체 오브젝트 선택 해제
+                    selectedOtherObject = null;
+                }
+                else
+                {   //플레이어 선택 해제
+                    ResetSelectPlayer();
+                }
+            }
+            else if (onHitPlayer) { ObjectEventManager.CancelAllSelectObject(); }
 
         }
 

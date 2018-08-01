@@ -17,21 +17,17 @@ public class KitchenUI : MonoBehaviour
     {
         titlePanel = transform.GetChild(0).gameObject;
         uiPanel = new GameObject[5];
+        uiPanel[(int)TITLE.COOK] = transform.GetChild((int)TITLE.COOK + 1).gameObject;
+        uiPanel[(int)TITLE.BUY] = transform.GetChild((int)TITLE.BUY + 1).gameObject;
+        uiPanel[(int)TITLE.STORAGE] = transform.GetChild((int)TITLE.STORAGE + 1).gameObject;
+        uiPanel[(int)TITLE.DISHING] = transform.GetChild((int)TITLE.DISHING + 1).gameObject;
+        uiPanel[(int)TITLE.NONE] = null;
 
-        int index = (int)TITLE.COOK;
-        uiPanel[index] = transform.GetChild(index + 1).gameObject;
-
-        index = (int)TITLE.PROCURE;
-        uiPanel[index] = transform.GetChild(index + 1).gameObject;
-
-        index = (int)TITLE.STOCK;
-        uiPanel[index] = transform.GetChild(index + 1).gameObject;
-
-        index = (int)TITLE.WASH;
-        uiPanel[index] = transform.GetChild(index + 1).gameObject;
-
-        index = (int)TITLE.NONE;
-        uiPanel[index] = null;
+        for (int i = 0; i < uiPanel.Length - 1; i++)
+        {
+            uiPanel[i].SetActive(true); //Start 또는 Awake 함수를 한 번씩 실행하여 초기화
+            uiPanel[i].SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -47,20 +43,21 @@ public class KitchenUI : MonoBehaviour
         {
             case TITLE.COOK:
                 index = (int)TITLE.COOK;
-                titlePanel.GetComponentInChildren<Text>().text = "요리 하기";
+                titlePanel.GetComponentInChildren<Text>().text = "Cooking";
                 uiPanel[index].SetActive(true);
                 break;
-            case TITLE.PROCURE:
-                index = (int)TITLE.PROCURE;
-                titlePanel.GetComponentInChildren<Text>().text = "재료 조달";
+            case TITLE.BUY:
+                index = (int)TITLE.BUY;
+                titlePanel.GetComponentInChildren<Text>().text = "Ingr. Buy";
                 break;
-            case TITLE.STOCK:
-                index = (int)TITLE.STOCK;
-                titlePanel.GetComponentInChildren<Text>().text = "재고 관리";
+            case TITLE.STORAGE:
+                index = (int)TITLE.STORAGE;
+                titlePanel.GetComponentInChildren<Text>().text = "Refrigerator";
+                uiPanel[index].SetActive(true);
                 break;
-            case TITLE.WASH:
-                index = (int)TITLE.WASH;
-                titlePanel.GetComponentInChildren<Text>().text = "설거지";
+            case TITLE.DISHING:
+                index = (int)TITLE.DISHING;
+                titlePanel.GetComponentInChildren<Text>().text = "Dishing";
                 break;
             case TITLE.NONE:
                 index = (int)TITLE.NONE;
