@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 4774272180806416}
   - component: {fileID: 114322788672158782}
   m_Layer: 0
-  m_Name: Refrigerators
+  m_Name: Storage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

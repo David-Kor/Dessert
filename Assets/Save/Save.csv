@@ -1,0 +1,6 @@
+﻿#Inventory,,,,,
+Refrigerator,Ingredient,RemainPeriod,Count,HorizonalIndex,VerticalIndex
+0,m,100,99,0,0
+0,r,100,99,1,0
+0,n,100,99,2,0
+#END,,,,,

@@ -5,34 +5,48 @@ using TITLE = EnumCollection.TITLE;
 
 public class Refrigerator : MonoBehaviour
 {
-    public struct StorageSpace  //냉장고 저장 공간 (단위 : 칸)
-    {
-        public int spaceID;
-        public char ingredient;    //재료 기호
-        public int remainPeriod;   //유통기한까지 남은 시간(단위 : 일)
-        public int groceriesLeft;  //남은 개수
-    }
-
     public GameObject kitchenUI;
-    public int storageWidth = 5;
-    public int storageHeight = 6;
-    public StorageSpace[,] storage; //냉장고 전체 재료 (단위 : 페이지)
+    private int storageWidth = 5;
+    private int storageHeight = 6;
+    public Inventory[,] storage; //냉장고 전체 보관 재료 (단위 : 페이지)
     public GameObject marker;
+    private int myIndex;
 
     void Start()
     {
+        int i, j;
+        storageWidth = GetComponentInParent<Storage>().storageWidth;
+        storageHeight = GetComponentInParent<Storage>().storageHeight;
+        myIndex = GetComponentInParent<Storage>().IndexOfRefrigeratorIndex(gameObject);
         marker = transform.parent.GetChild(1).gameObject;
-        storage = new StorageSpace[storageWidth, storageHeight];  //가로 5 x 세로 6 (칸)
-        //초기화
-        int idCounter = 1;
-        for (int i = 0; i < storageHeight; i++)
+        storage = new Inventory[storageWidth, storageHeight];  //가로 5 x 세로 6 (칸)
+
+        //storage 초기화
+        List<Inventory> bufferInventory = SaveAndLoad.LoadInventory(myIndex);   //세이브 파일에서 Inventory정보를 읽어옴
+        int hor, ver;
+        for (i = 0; i < bufferInventory.Count; i++)
         {
-            for (int j = 0; j < storageWidth; j++)
+            hor = bufferInventory[i].horIndex;
+            ver = bufferInventory[i].verIndex;
+            storage[hor, ver] = bufferInventory[i];
+        }
+
+        for (i = 0; i < storageHeight; i++)
+        {
+            for (j = 0; j < storageWidth; j++)
             {
-                storage[j, i].spaceID = idCounter++;
-                storage[j, i].ingredient = '\0';
-                storage[j, i].remainPeriod = 0;
-                storage[j, i].groceriesLeft = 0;
+                //채워지지 않은 칸은 초기화
+                if (storage[j, i] == null)
+                {
+                    storage[j, i] = new Inventory
+                    {
+                        ingredient = '\0',
+                        remainingPeriod = 0,
+                        count = 0,
+                        horIndex = j,
+                        verIndex = i
+                    };
+                }
             }
         }
 
@@ -74,6 +88,5 @@ public class Refrigerator : MonoBehaviour
         }
 
     }
-
 
 }

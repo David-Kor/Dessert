@@ -3,12 +3,18 @@ using UnityEngine;
 
 public class StorageUI : MonoBehaviour
 {
+    /* [] : current Class */
+    /* 부모 Object ────────────────────> 자식 Object */
+    /* Kitchen UI > [ StorageUI ] > RefrigeratorPageUI + RefrPageButtonUI > InventoryPanelUI > InventorySpaceUI > IngredientUI */
+
     public GameObject storage;
     public GameObject refrigeratorPageUI;
     public List<GameObject> pages;
     public int numberOfPages = 3;
+    private List<Inventory[,]> storageInfo;
+    private bool updateFlag = false;
 
-    void Start()
+    void Awake()
     {
         pages = new List<GameObject>();
 
@@ -16,7 +22,18 @@ public class StorageUI : MonoBehaviour
         {
             pages.Add(Instantiate(refrigeratorPageUI, transform));
         }
+    }
 
+    void Update()
+    {
+        if (updateFlag)
+        {
+            updateFlag = false;
+            for (int i = 1; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).GetComponent<RefrigeratorPageUI>().SetStorage(storageInfo[i - 1]);
+            }
+        }
     }
 
     public void SetViewRefrPageUI(int _index)   //현재 보이는 페이지를 변경
@@ -27,7 +44,7 @@ public class StorageUI : MonoBehaviour
             else { pages[i].SetActive(false); }
         }
 
-        GetComponentInChildren<RefrPageButtonUI>().currentIndex = _index;   //버튼UI의 currenIndex변경
+        GetComponentInChildren<RefrPageButtonUI>().SetCurrentPageIndex(_index);   //버튼UI의 currenIndex변경
         GetComponentInChildren<RefrPageButtonUI>().CheckIndexRange();   //currenIndex 범위 체크 (버튼 비활성화 조건 확인)
 
         //해당 냉장고의 마커가 활성화 되어있지 않으면
@@ -35,6 +52,12 @@ public class StorageUI : MonoBehaviour
         {
             storage.transform.GetChild(_index).GetComponentInChildren<ObjectEventManager>().doEvent = true;
         }
+    }
+
+    public void UpdateStorageInfo(List<Inventory[,]> _storages)    //냉장고들의 재료 저장 정보가 바뀔 때마다 받아옴
+    {
+        storageInfo = _storages;
+        updateFlag = true;
     }
 
 }

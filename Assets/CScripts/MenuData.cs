@@ -227,7 +227,6 @@ public class MenuData : MonoBehaviour
 
         }
 
-        WriteParsingInfo();
     }   //메뉴별 활성화 상태 갱신
 
     public List<int> GetIDsContainsIngredients(List<char> ingredList, int maxIndex)   //해당 재료를 포함하는 Menu를 탐색

@@ -8,7 +8,7 @@ public class KitchenUI : MonoBehaviour
 {
     /* [] : current Class */
     /* 부모 Object ────────────────────> 자식 Object */
-    /* [ Kitchen UI ] > CookUI > PageUI + PageButton > OrderPanelUI > DetailPanelUI > SelectPlayerPanelUI */
+    /* [ Kitchen UI ] > CookUI + StorageUI + DishingUI + BuyUI */
 
     private GameObject titlePanel;
     private GameObject[] uiPanel;

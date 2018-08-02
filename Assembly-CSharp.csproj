@@ -78,6 +78,7 @@
      <Compile Include="Assets\CScripts\OrderInfoList.cs" />
      <Compile Include="Assets\CScripts\Player\PlayerCharacterAnimation.cs" />
      <Compile Include="Assets\CScripts\Player\PlayerConfig.cs" />
+     <Compile Include="Assets\CScripts\SaveAndLoad.cs" />
      <Compile Include="Assets\CScripts\SpriteOrderLayer.cs" />
      <Compile Include="Assets\CScripts\UI_script\CookingUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\CookOrderPanelUI.cs" />
@@ -86,9 +87,13 @@
      <Compile Include="Assets\CScripts\UI_script\CookPlayerSelectButtonUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\DayLightUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\DetailsPanelUI.cs" />
+     <Compile Include="Assets\CScripts\UI_script\IngredientUI.cs" />
+     <Compile Include="Assets\CScripts\UI_script\Inventory.cs" />
+     <Compile Include="Assets\CScripts\UI_script\InventorySpaceUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\KitchenUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\OptionOpenAndClose.cs" />
      <Compile Include="Assets\CScripts\UI_script\PlayerSelectButton.cs" />
+     <Compile Include="Assets\CScripts\UI_script\RefrigeratorPageUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\RefrPageButtonUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\ShowD_DayUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\StorageUI.cs" />

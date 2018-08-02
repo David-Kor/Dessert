@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class RefrPageButtonUI : MonoBehaviour {
+    /* [] : current Class */
+    /* 부모 Object ────────────────────> 자식 Object */
+    /* Kitchen UI > StorageUI > RefrigeratorPageUI + [ RefrPageButtonUI ] > InventoryPanelUI > InventorySpaceUI > IngredientUI */
+
     //Child(0) : TEXT
     //Child(1) : Left Button
     //Child(2) : Right Button
@@ -43,17 +47,26 @@ public class RefrPageButtonUI : MonoBehaviour {
 
     public void SetCurrentPageIndex(int _index) { currentIndex = _index; }
 
-    public void CheckIndexRange()
+    public void CheckIndexRange()   //currentIndex의 범위를 확인하여 버튼 활성화 여부 결정
     {
         //첫 페이지 도달 시 왼쪽 버튼을 비활성화
         if (currentIndex + 1 <= 1)
         {
             leftButton.GetComponent<Button>().interactable = false;
         }
+        else
+        {
+            leftButton.GetComponent<Button>().interactable = true;
+        }
+
         //마지막 페이지 도달 시 오른쪽 버튼을 비활성화
         if (currentIndex + 1 >= maxIndex)
         {
             rightButton.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            rightButton.GetComponent<Button>().interactable = true;
         }
 
         textUI.GetComponent<Text>().text = (currentIndex + 1) + " / " + maxIndex;
