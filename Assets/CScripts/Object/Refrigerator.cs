@@ -38,14 +38,7 @@ public class Refrigerator : MonoBehaviour
                 //채워지지 않은 칸은 초기화
                 if (storage[j, i] == null)
                 {
-                    storage[j, i] = new Inventory
-                    {
-                        ingredient = '\0',
-                        remainingPeriod = 0,
-                        count = 0,
-                        horIndex = j,
-                        verIndex = i
-                    };
+                    storage[j, i] = new Inventory('\0', 0, 0, j, i);
                 }
             }
         }
@@ -62,6 +55,7 @@ public class Refrigerator : MonoBehaviour
         {
             GetComponent<ObjectEventManager>().doCancel = false;
             marker.GetComponent<SpriteRenderer>().enabled = false;
+            IngredientUI.ResetActiveAllExprirationDate();   //재료 유통기한 표시 비활성화
         }
 
         if (GetComponent<ObjectEventManager>().doEvent) //클릭 이벤트 발생
@@ -73,6 +67,7 @@ public class Refrigerator : MonoBehaviour
             //Marker 활성화/비활성화
             marker.GetComponent<SpriteRenderer>().enabled = !marker.GetComponent<SpriteRenderer>().enabled;
 
+            IngredientUI.ResetActiveAllExprirationDate();   //재료 유통기한 표시 비활성화
             //Marker 활성화 시 UI도 활성화
             if (marker.GetComponent<SpriteRenderer>().enabled)
             {
@@ -89,4 +84,28 @@ public class Refrigerator : MonoBehaviour
 
     }
 
+    public Inventory FindIngredientInStorage(char _ingredient)  //재료가 냉장고안에 존재하는지 확인
+    {
+        for (int i = 0; i < storageHeight; i++)
+        {
+            for (int j = 0; j < storageWidth; j++)
+            {
+                if (storage[j, i].ingredient == _ingredient) { return storage[j, i]; }
+            }
+        }
+        return null;
+    }
+
+    public void DecreaseInventoryCount(int _hor, int _ver, int decrsValue)
+    {
+        storage[_hor, _ver].count -= decrsValue;    //요구 개수만큼 차감
+        if (storage[_hor, _ver].count <= 0)
+        {
+            storage[_hor, _ver].ingredient = '\0';
+            storage[_hor, _ver].remainingPeriod = 0;
+            storage[_hor, _ver].UpdateImageByIngr();
+        }
+
+        GetComponentInParent<Storage>().UpdateRefrigeratorStorage(transform.parent.gameObject, storage);
+    }
 }

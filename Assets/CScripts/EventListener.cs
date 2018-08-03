@@ -56,10 +56,10 @@ public class EventListener : MonoBehaviour
             selectedGround = null;
         }
 
-        if (Input.GetButtonDown("Cancel") && selectedPlayer != null)
+        if (Input.GetButtonDown("Cancel"))
         {  //ESC키를 누르거나 화면이 전환되면 선택 해제
             isClickPlayer = false;
-            selectedPlayer.transform.GetChild(1).gameObject.SetActive(false);
+            if (selectedPlayer != null) { selectedPlayer.transform.GetChild(1).gameObject.SetActive(false); }
             selectedPlayer = null;
             selectedGround = null;
             selectedOtherObject = null;
@@ -82,14 +82,15 @@ public class EventListener : MonoBehaviour
                 //플레이어가 선택된 경우
                 if (hit[i].collider.gameObject.CompareTag("Player"))
                 {
+                    if (hit[i].transform.GetComponent<PlayerCharacterAnimation>().isWorking) { continue; }  //작업중이면 선택하지 못함
+
                     onHitPlayer = true;
                     if (hit[i].transform.parent.gameObject != selectedPlayer) { isClickPlayer = true; }  //이전에 선택한 캐릭터와 다른 캐릭터를 클릭한 경우
                     else { isClickPlayer = false; }  //이전 선택한 캐릭터와 동일한 캐릭터를 클릭한 경우
-
                     selectedPlayer = hit[i].collider.gameObject.transform.parent.gameObject;
                     selectedPlayer.transform.GetChild(1).gameObject.SetActive(true);
 
-                    for (int j = 0; j < playableCharacterObjects.Length; j++)
+                    for (int j = 0; j < playableCharacterObjects.Length; j++)   //오직 한명의 플레이어만이 선택되도록 함
                     {
                         if (playableCharacterObjects[j] != selectedPlayer)
                         {

@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4264179362077326}
   - component: {fileID: 212937237531484594}
   - component: {fileID: 114301331013284610}
+  - component: {fileID: 114719979145277902}
   m_Layer: 0
   m_Name: SpriteGuest
   m_TagString: Guest
@@ -125,6 +126,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04911624b1d34d34f85f1f832228afc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114719979145277902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1832363731513324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623f102d415008f4885627836a6e1ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontSprite: {fileID: 21300000, guid: 0085ceb33a94df548ba37f9e0fc90a9b, type: 3}
+  sideSprite: {fileID: 21300000, guid: 5541288e0f8098740957a7ec1fbcde35, type: 3}
+  backSprite: {fileID: 21300000, guid: 7f7867253564c0247b3ba9a20bd4299f, type: 3}
+  sit: {fileID: 21300000, guid: 5541288e0f8098740957a7ec1fbcde35, type: 3}
 --- !u!212 &212937237531484594
 SpriteRenderer:
   m_ObjectHideFlags: 1

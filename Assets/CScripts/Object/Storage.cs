@@ -4,20 +4,53 @@ using UnityEngine;
 
 public class Storage : MonoBehaviour
 {
+
+    //Child(0~3) : Refrigerator
     public GameObject storageUI;
-    public List<Inventory[,]> storageInfo;
+    public List<Inventory[,]> allStorage;
+    public Dictionary<char, int> totalInfo;
+
     public int storageWidth = 5;
     public int storageHeight = 6;
 
     void Awake()
     {
-        storageInfo = new List<Inventory[,]>();
+        totalInfo = new Dictionary<char, int>();
+        allStorage = new List<Inventory[,]>();
+    }
+
+    void UpdateTotalInfo(Inventory[,] _storage)
+    {
+        int i, j, count;
+        char ingredient;
+
+        for (i = 0; i < storageHeight; i++)
+        {
+            for (j = 0; j < storageWidth; j++)
+            {
+                ingredient = _storage[j, i].ingredient;
+                count = _storage[j, i].count;
+                if (ingredient == '\0') { continue; }
+
+                if (totalInfo.ContainsKey(ingredient))
+                {
+                    count += totalInfo[ingredient];
+                    totalInfo.Remove(ingredient);
+                    totalInfo.Add(ingredient, count);
+                }
+                else
+                {
+                    totalInfo.Add(ingredient, count);
+                }
+            }
+        }
     }
 
     public void AddRefrigeratorStorage(Inventory[,] _storage)    //냉장고의 재료 정보 추가
     {
-        storageInfo.Add(_storage);
-        storageUI.GetComponent<StorageUI>().UpdateStorageInfo(storageInfo);
+        allStorage.Add(_storage);
+        UpdateTotalInfo(_storage);
+        storageUI.GetComponent<StorageUI>().UpdateStorageInfo(allStorage);
     }
 
     public void UpdateRefrigeratorStorage(GameObject _child, Inventory[,] _storage)  //냉장고가 가진 재료 정보를 갱신
@@ -26,10 +59,12 @@ public class Storage : MonoBehaviour
         {
             if (transform.GetChild(i).gameObject == _child)
             {
-                storageInfo[i] = _storage;
+                allStorage[i] = _storage;
+                UpdateTotalInfo(allStorage[i]);
             }
         }
-        storageUI.GetComponent<StorageUI>().UpdateStorageInfo(storageInfo);
+
+        storageUI.GetComponent<StorageUI>().UpdateStorageInfo(allStorage);
     }
 
     public void ChangeViewRefrPages(GameObject _refr)  //냉장고 클릭 시에 페이지를 알맞게 변경할 수 있도록 함
@@ -52,4 +87,22 @@ public class Storage : MonoBehaviour
 
         return -1;
     }
+
+    public void DecreaseIngredient(MenuData.Menu menu)  //메뉴 제작 시 필요한 재료를 필요한 수만큼 감소시킴
+    {
+        Inventory inventory = null;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            for (int j = 0; j < menu.ingredients.Count; j++)
+            {
+                inventory = transform.GetChild(i).GetComponentInChildren<Refrigerator>().FindIngredientInStorage(menu.ingredients[j].sign);
+                if (inventory != null)
+                {
+                    transform.GetChild(i).GetComponentInChildren<Refrigerator>().
+                        DecreaseInventoryCount(inventory.horIndex, inventory.verIndex, menu.ingredients[j].require);
+                }
+            }
+        }
+    }
+
 }

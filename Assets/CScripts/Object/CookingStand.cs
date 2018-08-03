@@ -4,9 +4,12 @@ using TITLE = EnumCollection.TITLE;
 public class CookingStand : MonoBehaviour
 {
     public GameObject kitchenUI;
+    public GameObject storage;
+
     private bool doWorkEvent;
     private bool doCook;
     private bool endCook;
+    private bool doDecreased;
     private GameObject targetPlayer;
     private GameObject accessGround;
     private GameObject marker;
@@ -19,6 +22,7 @@ public class CookingStand : MonoBehaviour
         menu = null;
         marker = transform.parent.GetChild(1).gameObject;
         timer = 0f;
+        doDecreased = true;
     }
 
     void Update()
@@ -89,7 +93,9 @@ public class CookingStand : MonoBehaviour
         if (targetPlayer.GetComponent<MyCharacterMove>().GetTargetGround() != accessGround)     //목적지가 바뀌면
         {
             doCook = false;
+            doDecreased = false;
             targetPlayer = null;
+            menu = null;
             timer = 0;
             return;
         }
@@ -117,7 +123,12 @@ public class CookingStand : MonoBehaviour
     void StartCookMenu()   //요리 명령에 관한 처리
     {
         timer += Time.deltaTime;
-        targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isWorking = true;
+        //요리 시작 시 재료의 감소
+        if (doDecreased)
+        {
+            storage.GetComponent<Storage>().DecreaseIngredient(menu);
+            doDecreased = false;
+        }
 
         if (timer >= menu.time)
         {
@@ -127,14 +138,27 @@ public class CookingStand : MonoBehaviour
         }
     }
 
-    public void OrderCookingToPlayer(GameObject _player, MenuData.Menu _menu)  //요리 시작 명령을 받음
+    public bool OrderCookingToPlayer(GameObject _player, MenuData.Menu _menu)  //요리 시작 명령을 받음
     {
         if (_menu != null && _player != null && !doCook)
         {
+            menu = _menu;
+            for (int i = 0; i < menu.ingredients.Count; i++)
+            {
+                if (storage.GetComponent<Storage>().totalInfo[menu.ingredients[i].sign]   //현재 이 재료의 재고량
+                    < menu.ingredients[i].require)  //이 메뉴를 만드는데 필요한 재료의 양
+                {
+                    menu = null;
+                    return false;
+                }
+            }
             targetPlayer = _player;
             doWorkEvent = true;
-            menu = _menu;
+            doDecreased = true;
+            return true;
         }
+
+        return false;
     }
 
 

@@ -761,6 +761,7 @@ MonoBehaviour:
   originButton: {fileID: 1016926323990654, guid: b69a4f13869fff84b9aa20c1e4113e65,
     type: 2}
   currentPage: {fileID: 0}
+  failCookUI: {fileID: 1467726729572080, guid: dca293c040081d8419fd94b44c087e03, type: 2}
 --- !u!114 &114650201453722178
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -99,13 +99,13 @@ public class SaveAndLoad : MonoBehaviour
             if (parsedInventory[i].refrIndex == _refrIndex)
             {
                 rtnInventories.Add(new Inventory
-                {
-                    ingredient = parsedInventory[i].ingredient,
-                    remainingPeriod = parsedInventory[i].remainPeriod,
-                    count = parsedInventory[i].count,
-                    horIndex = parsedInventory[i].horIndex,
-                    verIndex = parsedInventory[i].verIndex
-                });
+                (
+                    parsedInventory[i].ingredient,
+                    parsedInventory[i].remainPeriod,
+                    parsedInventory[i].count,
+                    parsedInventory[i].horIndex,
+                    parsedInventory[i].verIndex
+                ));
             }
         }
         return rtnInventories;

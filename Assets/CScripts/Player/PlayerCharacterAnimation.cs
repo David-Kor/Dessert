@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerCharacterAnimation : MonoBehaviour
 {
-    private Vector2 prePosition;
     public Sprite frontSprite;
     public Sprite backSprite;
     public Sprite sideSprite;
@@ -20,6 +19,7 @@ public class PlayerCharacterAnimation : MonoBehaviour
     private Vector2 scrubbingLocalPos;
     private Vector2 noScrubbingLocalPos;
     private Vector2 direct;
+    private Vector2 prePosition;
     private float timer;
     private int currentScrubSprite;
     private MyCharacterMove characterMove;

@@ -13,6 +13,8 @@ public class CookingUI : MonoBehaviour
     public GameObject originPage;
     public GameObject originButton;
     public GameObject currentPage;
+    public GameObject failCookUI;
+
     private LinkedList<GameObject> pageList;    //페이지의 각 자식들은 간략한 정보를 보여줄 한 칸의 UI에 해당함
     private LinkedList<GameObject> panelList;
     private LinkedList<GameObject> buttonList;
@@ -162,5 +164,8 @@ public class CookingUI : MonoBehaviour
         }
     }
 
-
+    public void ViewFailCookUI()
+    {
+        Instantiate(failCookUI, transform);
+    }
 }

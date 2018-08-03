@@ -57,6 +57,7 @@
      <Compile Include="Assets\CScripts\EnumCollection.cs" />
      <Compile Include="Assets\CScripts\EventListener.cs" />
      <Compile Include="Assets\CScripts\Guest\GuestAction.cs" />
+     <Compile Include="Assets\CScripts\Guest\GuestAnimation.cs" />
      <Compile Include="Assets\CScripts\Guest\GuestConfig.cs" />
      <Compile Include="Assets\CScripts\MenuData.cs" />
      <Compile Include="Assets\CScripts\MoveCharacter\Field.cs" />
@@ -87,6 +88,7 @@
      <Compile Include="Assets\CScripts\UI_script\CookPlayerSelectButtonUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\DayLightUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\DetailsPanelUI.cs" />
+     <Compile Include="Assets\CScripts\UI_script\FailCookMessage.cs" />
      <Compile Include="Assets\CScripts\UI_script\IngredientUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\Inventory.cs" />
      <Compile Include="Assets\CScripts\UI_script\InventorySpaceUI.cs" />

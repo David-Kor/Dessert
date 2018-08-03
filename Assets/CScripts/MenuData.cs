@@ -7,14 +7,16 @@ using TOOL = EnumCollection.TOOL;
 
 public class MenuData : MonoBehaviour
 {
+    public List<Sprite> ingrImg;
+    public Dictionary<char, Sprite> getIngrImage;
     public List<Dictionary<string, string>> recipes;
-    
+    //레시피에 필요한 식재료의 클래스
     public class Ingredients
     {
         public char sign;
         public int require;
     }
-
+    //레시피 정보에 의해 완성된 메뉴 클래스
     public class Menu
     {
         public int id;  //식별자
@@ -29,7 +31,6 @@ public class MenuData : MonoBehaviour
     }
 
     public static List<Menu> menuList;
-
     public List<Menu> enableMenus;
 
     /*KEY_LIST : ID	이름	종류	계절	가격	제작 시간	설비	I1	Q1	I2	Q2	I3	Q3	I4	Q4	I5	Q5	I6	Q6	I7	Q7*/
@@ -39,11 +40,12 @@ public class MenuData : MonoBehaviour
 
     private const int MAX_COUNT_INGREDIENT = 7;
 
-    void Start()
+    void Awake()
     {
         menuList = new List<Menu>();
         enableMenus = new List<Menu>();
         ingredList = new List<Dictionary<string, string>>();
+        getIngrImage = new Dictionary<char, Sprite>();
         ParsingRecipe();    //모든 레시피가 저장된 recipe.csv파일로부터 정보를 읽어들임
         ParsingIngredient();    //모든 재료가 저장된 Init_Ingredient.csv에서 정보를 읽음
         Menu newMenu;
@@ -175,6 +177,16 @@ public class MenuData : MonoBehaviour
             }
         }
 
+
+        while (ingredList.Count > ingrImg.Count)
+            ingrImg.Add(null);
+
+        for (int i = 0; i < ingredList.Count; i++)  //Ingredient의 sign+이미지 쌍의 딕셔너리 작성
+        {
+            getIngrImage.Add(ingredList[i]["Pref"][0], ingrImg[i]);
+        }
+
+        getIngrImage.Add('\0', null);
     }   //외부 재료 파일 정보 불러오기
 
     void WriteParsingInfo()
