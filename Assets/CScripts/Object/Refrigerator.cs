@@ -95,6 +95,23 @@ public class Refrigerator : MonoBehaviour
         }
         return null;
     }
+    public List<Inventory> FindIngredientsInStorage(char _ingredient)  //재료가 냉장고안에 존재하는지 확인
+    {
+        List<Inventory> findInventory = new List<Inventory>();
+
+        for (int i = 0; i < storageHeight; i++)
+        {
+            for (int j = 0; j < storageWidth; j++)
+            {
+                if (_ingredient == storage[j, i].ingredient)
+                {
+                    findInventory.Add(storage[j, i]);
+                }
+            }
+        }
+
+        return findInventory;
+    }
 
     public void DecreaseInventoryCount(int _hor, int _ver, int decrsValue)
     {
