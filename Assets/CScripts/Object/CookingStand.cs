@@ -3,6 +3,10 @@ using TITLE = EnumCollection.TITLE;
 
 public class CookingStand : MonoBehaviour
 {
+    //Parent : CookingStand
+    //- child(0) : sprite(this Object)
+    //- child(1) : Marker
+    //- child(2) : AccessPoint
     public GameObject kitchenUI;
     public GameObject storage;
 
@@ -112,11 +116,15 @@ public class CookingStand : MonoBehaviour
         targetPlayer = null;
         timer = 0;
         bool preActive = kitchenUI.transform.GetChild((int)TITLE.COOK + 1).gameObject.activeSelf;   //원래 활성화 상태 저장
-        kitchenUI.transform.GetChild((int)TITLE.COOK + 1).gameObject.SetActive(true);
+
+        kitchenUI.transform.GetChild((int)TITLE.COOK + 1).gameObject.SetActive(true);   //임시로 활성화
+
         CookingUI cookingUI = kitchenUI.GetComponentInChildren<CookingUI>();
         GameObject orderPanel = cookingUI.FindMenuInOrderPanel(menu);
+
         orderPanel.GetComponent<CookOrderPanelUI>().CompleteThisOrder();
-        kitchenUI.transform.GetChild((int)TITLE.COOK + 1).gameObject.SetActive(preActive);
+
+        kitchenUI.transform.GetChild((int)TITLE.COOK + 1).gameObject.SetActive(preActive);  //이전 활성화 상태로 되돌림
         menu = null;
     }
 
@@ -138,7 +146,7 @@ public class CookingStand : MonoBehaviour
         }
     }
 
-    public bool OrderCookingToPlayer(GameObject _player, MenuData.Menu _menu)  //요리 시작 명령을 받음
+    public int OrderCookingToPlayer(GameObject _player, MenuData.Menu _menu)  //요리 시작 명령을 받음
     {
         if (_menu != null && _player != null && !doCook)
         {
@@ -149,16 +157,16 @@ public class CookingStand : MonoBehaviour
                     < menu.ingredients[i].require)  //이 메뉴를 만드는데 필요한 재료의 양
                 {
                     menu = null;
-                    return false;
+                    return -1;
                 }
             }
             targetPlayer = _player;
             doWorkEvent = true;
             doDecreased = true;
-            return true;
+            return 1;
         }
 
-        return false;
+        return 0;
     }
 
 

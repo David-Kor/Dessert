@@ -8,6 +8,7 @@ public class PlayerConfig : MonoBehaviour {
     public float timeToScrub = 5.0f;
 
     private List<Order> myOrderList;    //<테이블, 주문 목록>쌍의 리스트
+    private Order servingOrder;
 
     void Start()
     {

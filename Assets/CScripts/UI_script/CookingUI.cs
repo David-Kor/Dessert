@@ -164,8 +164,8 @@ public class CookingUI : MonoBehaviour
         }
     }
 
-    public void ViewFailCookUI()
+    public void ViewFailCookUI(string _message)
     {
-        Instantiate(failCookUI, transform);
+        Instantiate(failCookUI, transform).GetComponentInChildren<Text>().text = _message;
     }
 }

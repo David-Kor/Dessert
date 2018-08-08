@@ -10,6 +10,7 @@ public class PlayerCharacterAnimation : MonoBehaviour
     public Sprite takeOrderSprite;
     public Sprite[] scrubSprite;
 
+    public float localScale = 1.0f;
     public bool isServing;
     public bool isScrubbing;
     public bool isTakeOrder;
@@ -23,6 +24,7 @@ public class PlayerCharacterAnimation : MonoBehaviour
     private float timer;
     private int currentScrubSprite;
     private MyCharacterMove characterMove;
+    private GameObject marker;
 
     // Use this for initialization
     void Start()
@@ -34,6 +36,8 @@ public class PlayerCharacterAnimation : MonoBehaviour
         scrubbingLocalPos = Vector2.up * 0.3f;
         noScrubbingLocalPos = Vector2.up * 0.75f;
         isTakeOrder = false;
+        marker = transform.parent.GetChild(1).gameObject;
+        CheckFieldForLocalScaleAndPos();
     }
 
     // Update is called once per frame
@@ -45,6 +49,8 @@ public class PlayerCharacterAnimation : MonoBehaviour
         }
         if (characterMove != null)
         {
+            CheckFieldForLocalScaleAndPos();
+
             if (characterMove.GetIsMoving())
             {
                 if (isScrubbing) { isScrubbing = false; }
@@ -75,12 +81,12 @@ public class PlayerCharacterAnimation : MonoBehaviour
 
                 if (prePosition.x < transform.position.x)
                 {   //오른쪽 이동
-                    transform.localScale = Vector2.left + Vector2.up;    //좌우 반전
+                    transform.localScale = (Vector2.left + Vector2.up) * localScale;    //좌우 반전
                     direct = Vector2.right;
                 }
                 else
                 {   //왼쪽 이동
-                    transform.localScale = Vector2.right + Vector2.up;   //원상복귀
+                    transform.localScale = (Vector2.right + Vector2.up) * localScale;   //원상복귀
                     direct = Vector2.left;
                 }
 
@@ -90,13 +96,13 @@ public class PlayerCharacterAnimation : MonoBehaviour
                 if (prePosition.y < transform.position.y)
                 {   //위로 이동
                     GetComponent<SpriteRenderer>().sprite = backSprite;
-                    transform.localScale = Vector2.right + Vector2.up;   //원상복귀
+                    transform.localScale = (Vector2.right + Vector2.up) * localScale;   //원상복귀
                     direct = Vector2.up;
                 }
                 else
                 {   //아래 이동
                     GetComponent<SpriteRenderer>().sprite = frontSprite;
-                    transform.localScale = Vector2.right + Vector2.up;   //원상복귀
+                    transform.localScale = (Vector2.right + Vector2.up) * localScale;   //원상복귀
                     direct = Vector2.down;
                 }
             }
@@ -114,7 +120,7 @@ public class PlayerCharacterAnimation : MonoBehaviour
         SetChildActiveScrubbing(isScrubbing);
 
         direct = Vector2.down;
-        transform.localScale = Vector2.one;   //원상복귀
+        transform.localScale = Vector2.one * localScale;   //원상복귀
 
         //서빙
         if (isServing) { ServingAnimation(); }
@@ -187,5 +193,21 @@ public class PlayerCharacterAnimation : MonoBehaviour
     void SetChildActiveScrubbing(bool _setActive)
     {
         transform.GetChild(2).gameObject.SetActive(_setActive);
+    }
+
+    void CheckFieldForLocalScaleAndPos()
+    {
+        if (GetComponentInParent<MyCharacterMove>().currentField.name.EndsWith("Hall"))
+        {
+            localScale = 1.0f;
+            noScrubbingLocalPos = Vector2.up * 0.75f;
+            marker.transform.localPosition = Vector2.up * 2.56f;
+        }
+        else if (GetComponentInParent<MyCharacterMove>().currentField.name.EndsWith("Kitchen"))
+        {
+            localScale = 1.5f;
+            noScrubbingLocalPos = Vector2.up * 1.35f;
+            marker.transform.localPosition = Vector2.up * 3.84f;
+        }
     }
 }

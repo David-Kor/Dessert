@@ -8,9 +8,11 @@ public class OrderInfoList : MonoBehaviour
     private LinkedList<Order> orders;
     private int preCount;
     private int idCounter;
-
+    private Dictionary<Order, int> completeCounter; //<주문, 완성된 메뉴의 개수> 쌍의 딕셔너리
+    
     void Start()
     {
+        completeCounter = new Dictionary<Order, int>();
         orders = new LinkedList<Order>();
         preCount = 0;
         idCounter = 1;
@@ -48,6 +50,21 @@ public class OrderInfoList : MonoBehaviour
         cookUI.SetActive(true);
         cookUI.GetComponent<CookingUI>().AppendOrderUI(_order);
         cookUI.SetActive(preActive);
+    }
+
+    public void CheckCompleteOrder(Order _order, MenuData.Menu _menu)
+    {
+        //처음 메뉴가 완성된 주문이면 딕셔너리 추가
+        if (!completeCounter.ContainsKey(_order))
+        {
+            completeCounter.Add(_order, 0);
+        }
+        completeCounter[_order] = completeCounter[_order] + 1;  //Value를 1 더함 -> 해당 주문에 대한 완성된 메뉴의 수 +1
+
+        if (completeCounter[_order] == _order.menuIDList.Count) //이 주문의 모든 메뉴가 완성 되었으면
+        {
+            GameObject.Find("CompletedOrders").GetComponent<CompletedOrders>().AddCompleteMenu(_order);
+        }
     }
 
 }

@@ -66,6 +66,8 @@
      <Compile Include="Assets\CScripts\MoveCharacter\GroundUnit.cs" />
      <Compile Include="Assets\CScripts\MoveCharacter\MyCharacterMove.cs" />
      <Compile Include="Assets\CScripts\Object\AccessPositionOfObject.cs" />
+     <Compile Include="Assets\CScripts\Object\CompletedObject.cs" />
+     <Compile Include="Assets\CScripts\Object\CompletedOrders.cs" />
      <Compile Include="Assets\CScripts\Object\CookingStand.cs" />
      <Compile Include="Assets\CScripts\Object\DoorToWarpSpace.cs" />
      <Compile Include="Assets\CScripts\Object\ObjectEventManager.cs" />
@@ -74,6 +76,7 @@
      <Compile Include="Assets\CScripts\Object\SpawnGuest.cs" />
      <Compile Include="Assets\CScripts\Object\Storage.cs" />
      <Compile Include="Assets\CScripts\Object\TableStateManager.cs" />
+     <Compile Include="Assets\CScripts\Object\TheSink.cs" />
      <Compile Include="Assets\CScripts\Object\TransmissionOrder.cs" />
      <Compile Include="Assets\CScripts\Order.cs" />
      <Compile Include="Assets\CScripts\OrderInfoList.cs" />

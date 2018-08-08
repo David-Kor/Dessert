@@ -27,13 +27,13 @@ public class EventListener : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            isClickUI = false;
             selectedGround = null;
             selectedOtherObject = null;
             clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //메인 카메라 화면 기준 좌표
 
             //플레이어 오브젝트 선택(클릭)
             CastRayOnMouseClick();
-
             if (!isClickUI) //UI를 클릭한 것이 아닌 경우
             {
                 //플레이어 오브젝트의 이동

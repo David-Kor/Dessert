@@ -31,7 +31,10 @@ public class StorageUI : MonoBehaviour
             updateFlag = false;
             for (int i = 1; i < transform.childCount; i++)
             {
-                transform.GetChild(i).GetComponent<RefrigeratorPageUI>().SetStorage(storageInfo[i - 1]);
+                if (storageInfo[i - 1] != null)
+                {
+                    transform.GetChild(i).GetComponent<RefrigeratorPageUI>().SetStorage(storageInfo[i - 1]);
+                }
             }
         }
     }

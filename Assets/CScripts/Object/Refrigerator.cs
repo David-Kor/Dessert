@@ -43,7 +43,7 @@ public class Refrigerator : MonoBehaviour
             }
         }
 
-        GetComponentInParent<Storage>().AddRefrigeratorStorage(storage);
+        GetComponentInParent<Storage>().AddRefrigeratorStorage(transform.parent.gameObject, storage);
 
     }
 
@@ -60,7 +60,6 @@ public class Refrigerator : MonoBehaviour
 
         if (GetComponent<ObjectEventManager>().doEvent) //클릭 이벤트 발생
         {
-
             ObjectEventManager.CancelAllSelectWithOutObject(transform.parent.gameObject); //다른 오브젝트 선택 해제
             Camera.main.GetComponent<EventListener>().ResetSelectPlayer();  //플레이어 선택 해제
             GetComponent<ObjectEventManager>().doEvent = false;
@@ -95,6 +94,7 @@ public class Refrigerator : MonoBehaviour
         }
         return null;
     }
+
     public List<Inventory> FindIngredientsInStorage(char _ingredient)  //재료가 냉장고안에 존재하는지 확인
     {
         List<Inventory> findInventory = new List<Inventory>();

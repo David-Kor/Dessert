@@ -104,16 +104,12 @@ public class TableStateManager : MonoBehaviour {
         switch (stateOfTable)
         {
             case T_STATE.CLEAR:
-                GetComponent<SpriteRenderer>().color = Color.white;
                 break;
             case T_STATE.USING:
-                GetComponent<SpriteRenderer>().color = Color.green;
                 break;
             case T_STATE.DIRTY:
-                GetComponent<SpriteRenderer>().color = Color.black;
                 break;
             case T_STATE.RESERVED:
-                GetComponent<SpriteRenderer>().color = Color.blue;
                 break;
         }
     }

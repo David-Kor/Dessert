@@ -45,6 +45,7 @@ public class CookOrderPanelUI : MonoBehaviour
 
     public void CompleteThisOrder()
     {
+        GameObject.Find("OrderStore").GetComponent<OrderInfoList>().CheckCompleteOrder(order, menu);
         GetComponentInParent<CookingUI>().RemoveOrderUI(gameObject);
     }
 

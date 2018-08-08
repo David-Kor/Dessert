@@ -17,6 +17,9 @@ public class Storage : MonoBehaviour
     {
         totalInfo = new Dictionary<char, int>();
         allStorage = new List<Inventory[,]>();
+        allStorage.Add(null);
+        allStorage.Add(null);
+        allStorage.Add(null);
     }
 
     void UpdateTotalInfo(Inventory[,] _storage)
@@ -46,10 +49,18 @@ public class Storage : MonoBehaviour
         }
     }
 
-    public void AddRefrigeratorStorage(Inventory[,] _storage)    //냉장고의 재료 정보 추가
+    public void AddRefrigeratorStorage(GameObject _child, Inventory[,] _storage)    //냉장고의 재료 정보 추가
     {
-        allStorage.Add(_storage);
-        UpdateTotalInfo(_storage);
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject == _child)
+            {
+                allStorage[i] = _storage;
+                UpdateTotalInfo(_storage);
+                break;
+            }
+        }
+
         storageUI.GetComponent<StorageUI>().UpdateStorageInfo(allStorage);
     }
 

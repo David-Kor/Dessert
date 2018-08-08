@@ -91,6 +91,7 @@ public class SaveAndLoad : MonoBehaviour
 
     public static List<Inventory> LoadInventory(int _refrIndex)
     {
+        if (_refrIndex < 0) return null;
         List<Inventory> rtnInventories = new List<Inventory>();
 
         for (int i = 0; i < parsedInventory.Count; i++)
