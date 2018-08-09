@@ -167,8 +167,14 @@ public class PlayerCharacterAnimation : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            if (direct == Vector2.up || direct == Vector2.right) { transform.GetChild(i).GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + i - 2; }
-            if (direct == Vector2.down || direct == Vector2.left) { transform.GetChild(i).GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + i+1; }
+            if (direct == Vector2.up || direct == Vector2.right)
+            {
+                transform.GetChild(i).GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + i - 2;
+            }
+            if (direct == Vector2.down || direct == Vector2.left)
+            {
+                transform.GetChild(i).GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + i + 1;
+            }
         }
 
     }

@@ -17,12 +17,33 @@ public class OrderInfoList : MonoBehaviour
         preCount = 0;
         idCounter = 1;
     }
+
     void Update()
     {
         if (preCount != orders.Count)
         {
             preCount = orders.Count;
         }
+    }
+
+    void RemoveOrder(Order _order)
+    {
+        if (orders.Contains(_order))
+        {
+            orders.Remove(_order);
+            return;
+        }
+        LinkedListNode<Order> node = orders.First;
+        while (node != null)
+        {
+            if (node.Value.table == _order.table)
+            {
+                orders.Remove(node);
+                return;
+            }
+            node = node.Next;
+        }
+
     }
 
     public void AppendOrder(List<int> _idList, GameObject _table)   //직접 주문 정보를 받아 새 Order추가
@@ -64,6 +85,7 @@ public class OrderInfoList : MonoBehaviour
         if (completeCounter[_order] == _order.menuIDList.Count) //이 주문의 모든 메뉴가 완성 되었으면
         {
             GameObject.Find("CompletedOrders").GetComponent<CompletedOrders>().AddCompleteMenu(_order);
+            RemoveOrder(_order);
         }
     }
 

@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class TransmissionOrder : MonoBehaviour
 {
+    public GameObject completedOrders;
+
     private List<GameObject> targetPlayer;
     private GameObject deskGround;
     private List<bool> doWork;
+    private Order waitForServingOrder;
 
     // Use this for initialization
     void Start()
     {
+        waitForServingOrder = null;
         targetPlayer = new List<GameObject>();
         doWork = new List<bool>();
     }
@@ -73,8 +77,23 @@ public class TransmissionOrder : MonoBehaviour
         }
 
         if (targetPlayer[_index].transform.position == deskGround.transform.position)
-        {   //플레이어가 도착하면
+        {   //플레이어가 도착하면 플레이어가 받은 주문 목록을 전달
             targetPlayer[_index].GetComponent<PlayerConfig>().SendOrderToUI();
+           
+            //서빙을 기다리는 완성된 주문이 없다면 새로 완성된 주문 중 하나를 받아옴 (없으면 null을 받는다.)
+            if (waitForServingOrder == null)
+            {
+                waitForServingOrder = completedOrders.GetComponent<CompletedOrders>().TakeCompleteMenu();
+            }
+            
+            //서빙을 기다리는 주문이 존재하면 도착한 플레이어에게 전달한다.
+            if (waitForServingOrder != null)
+            {
+                bool isRecieve = targetPlayer[_index].GetComponent<PlayerConfig>().ReceieveOrderForServing(waitForServingOrder);
+                //성공적으로 전달 되었으면 servingOrder 초기화
+                if (isRecieve) { waitForServingOrder = null; }
+            }
+
             targetPlayer.RemoveAt(_index);
             doWork.RemoveAt(_index);
         }

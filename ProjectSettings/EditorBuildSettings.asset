@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Hall.unity
+    guid: f5adce5a91860fd4ba4b41ed21cc1b55
+  m_configObjects: {}

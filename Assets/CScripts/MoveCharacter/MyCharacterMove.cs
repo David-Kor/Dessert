@@ -94,6 +94,7 @@ public class MyCharacterMove : MonoBehaviour
             isMoving = true;
             return true;
         }
+
         return false;
     }
 

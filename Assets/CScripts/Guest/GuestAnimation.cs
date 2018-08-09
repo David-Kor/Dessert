@@ -26,6 +26,9 @@ public class GuestAnimation : MonoBehaviour {
             case STATE.MOVE:
                 MoveAnimation();
                 break;
+            case STATE.HOLD:
+                StopAnimation();
+                break;
         }
     }
 
@@ -70,4 +73,31 @@ public class GuestAnimation : MonoBehaviour {
             transform.localScale = Vector2.one;
         }
     }
+
+    void StopAnimation()
+    {
+        GameObject myTable = GetComponentInParent<GuestAction>().GetMyTable();
+        if (myTable == null) { return; }
+        Vector2 tablePos = myTable.transform.position;
+
+        //테이블 왼쪽에 앉아있으면
+        if (transform.position.x < tablePos.x)
+        {
+            direct = Vector2.right;
+            MoveAnimation();
+        }
+        //테이블 오른쪽에 앉아있으면
+        else if (transform.position.x > tablePos.x)
+        {
+            direct = Vector2.left;
+            MoveAnimation();
+        }
+        //테이블 아래에 앉아있으면 -> 사실상 버그 외엔 존재하지 않는 경우
+        else
+        {
+            direct = Vector2.up;
+            MoveAnimation();
+        }
+    }
+
 }

@@ -28,8 +28,11 @@ public class CompletedOrders : MonoBehaviour {
                     transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = true;
                     return;
                 }
+
             }
+
         }
+
     }
 
     public Order TakeCompleteMenu()

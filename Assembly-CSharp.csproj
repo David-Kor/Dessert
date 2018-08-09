@@ -75,6 +75,7 @@
      <Compile Include="Assets\CScripts\Object\Refrigerator.cs" />
      <Compile Include="Assets\CScripts\Object\SpawnGuest.cs" />
      <Compile Include="Assets\CScripts\Object\Storage.cs" />
+     <Compile Include="Assets\CScripts\Object\TableActMarker.cs" />
      <Compile Include="Assets\CScripts\Object\TableStateManager.cs" />
      <Compile Include="Assets\CScripts\Object\TheSink.cs" />
      <Compile Include="Assets\CScripts\Object\TransmissionOrder.cs" />
@@ -82,6 +83,7 @@
      <Compile Include="Assets\CScripts\OrderInfoList.cs" />
      <Compile Include="Assets\CScripts\Player\PlayerCharacterAnimation.cs" />
      <Compile Include="Assets\CScripts\Player\PlayerConfig.cs" />
+     <Compile Include="Assets\CScripts\Player\TargetTablePointer.cs" />
      <Compile Include="Assets\CScripts\SaveAndLoad.cs" />
      <Compile Include="Assets\CScripts\SpriteOrderLayer.cs" />
      <Compile Include="Assets\CScripts\UI_script\CookingUI.cs" />
@@ -110,7 +112,6 @@
      <Compile Include="Assets\iTween\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
      <None Include="Assets\Sprite Pack\Tap and Fly\Readme.txt" />
      <None Include="Assets\iTween\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
-     <None Include="Assets\Resources\TEST_MENU_LIST.txt" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>C:/Users/David/Documents/공부자료/Unity/Dessert/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>

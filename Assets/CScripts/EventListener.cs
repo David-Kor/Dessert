@@ -124,9 +124,10 @@ public class EventListener : MonoBehaviour
 
             if (onHitPlayer && onHitObject)
             {   //플레이어와 오브젝트가 동시에 클릭된 경우 (스프라이트 곂쳐짐)
-                //스프라이트가 뒤쪽인 오브젝트를 무시함
-                if (selectedPlayer.GetComponentInChildren<SpriteRenderer>().sortingOrder
-                    >= selectedOtherObject.GetComponent<SpriteRenderer>().sortingOrder)
+                //더 뒤쪽에 있는 게임 오브젝트를 무시함
+
+                if (selectedPlayer.transform.position.y
+                    < selectedOtherObject.transform.position.y)
                 {
                     ObjectEventManager.CancelAllSelectObject(); //전체 오브젝트 선택 해제
                     selectedOtherObject = null;

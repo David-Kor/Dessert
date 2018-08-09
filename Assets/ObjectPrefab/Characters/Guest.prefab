@@ -112,9 +112,12 @@ MonoBehaviour:
   hallField: {fileID: 0}
   kitchenField: {fileID: 0}
   currentField: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 20
+  counterToPay: {fileID: 0}
   currentState: 0
   timeToOrderSec: 3
+  timeToEatSec: 5
+  isPayer: 0
 --- !u!114 &114301331013284610
 MonoBehaviour:
   m_ObjectHideFlags: 1

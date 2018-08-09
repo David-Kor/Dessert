@@ -187,6 +187,7 @@ public class MenuData : MonoBehaviour
         }
 
         getIngrImage.Add('\0', null);
+        
     }   //외부 재료 파일 정보 불러오기
 
     void WriteParsingInfo()

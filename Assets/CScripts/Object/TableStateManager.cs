@@ -20,7 +20,7 @@ public class TableStateManager : MonoBehaviour {
     private float timer;
     private GameObject targetPlayer;
     private GameObject accessGround;
-    private List<int> orderList;
+    private List<int> orderMenus;
 
     // Use this for initialization
     void Start()
@@ -31,7 +31,7 @@ public class TableStateManager : MonoBehaviour {
         targetPlayer = null;
         accessGround = null;
         guestGroup = new List<GameObject>();
-        orderList = new List<int>();
+        orderMenus = new List<int>();
 
         string strToID = transform.parent.gameObject.name;
         strToID = strToID.Split(' ')[1];
@@ -86,13 +86,8 @@ public class TableStateManager : MonoBehaviour {
 
             if (isReady)
             {
-                if (!transform.parent.GetChild(1).GetComponent<SpriteRenderer>().enabled)
-                {
-                    transform.parent.GetChild(1).GetComponent<SpriteRenderer>().enabled = true;
-                }
-
                 //이 테이블의 주문 목록이 비었을 경우 주문할 목록을 받아옴
-                if (orderList.Count == 0) { RequestOrder(); }
+                if (orderMenus.Count == 0) { RequestOrder(); }
             }
         }
     }
@@ -106,6 +101,8 @@ public class TableStateManager : MonoBehaviour {
             case T_STATE.CLEAR:
                 break;
             case T_STATE.USING:
+                break;
+            case T_STATE.WAITING:
                 break;
             case T_STATE.DIRTY:
                 break;
@@ -128,41 +125,94 @@ public class TableStateManager : MonoBehaviour {
         {   //플레이어가 도착하면
             switch (stateOfTable)
             {
+                //더러운 상태일 때 처리
                 case T_STATE.DIRTY:
-                    targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isScrubbing = true;
-                    timer += Time.deltaTime;
-                    if (timer >= timeToScrub)
                     {
-                        doWork = false;
-                        stateOfTable = T_STATE.CLEAR;
-                        targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isScrubbing = false;
-                        timer = 0.0f;
-                    }
-                    break;
-
-                case T_STATE.USING:
-                    if (isGuestOrder && orderList.Count > 0)
-                    {   //주문할 메뉴가 정해져 있다면
-                        timer += Time.deltaTime;
-                        targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isTakeOrder = true;
-                        if (timer >= timeToOrder)
+                        //플레이어가 서빙중이라면 예외처리
+                        if (targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isServing)
                         {
-                            targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isTakeOrder = false;
-                            transform.parent.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
-
-                            for (int i = 0; i < guestGroup.Count; i++)
-                            {   //그룹에 속한 손님들의 상태를 WAIT로 전환
-                                guestGroup[i].GetComponent<GuestAction>().SetCurrentState(G_STATE.WAIT);
-                            }
-                            targetPlayer.GetComponent<PlayerConfig>().TakeOrderToPlayer(gameObject, orderList);
                             doWork = false;
-                            isGuestOrder = false;
+                            timer = 0.0f;
                             targetPlayer = null;
+                            return;
                         }
+
+                        targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isScrubbing = true;
+                        timer += Time.deltaTime;
+                        if (timer >= timeToScrub)
+                        {
+                            doWork = false;
+                            stateOfTable = T_STATE.CLEAR;
+                            targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isScrubbing = false;
+                            targetPlayer = null;
+                            timer = 0.0f;
+                        }
+                        break;
                     }
-                    break;
+
+                //사용중 상태일 때 처리
+                case T_STATE.USING:
+                    {
+                        //플레이어가 서빙중이라면 예외처리
+                        if (targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isServing)
+                        {
+                            doWork = false;
+                            timer = 0.0f;
+                            targetPlayer = null;
+                            return;
+                        }
+
+                        if (isGuestOrder && orderMenus.Count > 0)
+                        {   //주문할 메뉴가 정해져 있다면
+                            timer += Time.deltaTime;
+                            targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isTakeOrder = true;
+                            if (timer >= timeToOrder)
+                            {
+                                targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>().isTakeOrder = false;
+
+                                for (int i = 0; i < guestGroup.Count; i++)
+                                {   //그룹에 속한 손님들의 상태를 WAIT로 전환
+                                    guestGroup[i].GetComponent<GuestAction>().SetCurrentState(G_STATE.WAIT);
+                                }
+                                targetPlayer.GetComponent<PlayerConfig>().TakeOrderToPlayer(gameObject, orderMenus);
+
+                                //테이블 상태를 WAITING으로 변경하고 변수들 초기화
+                                stateOfTable = T_STATE.WAITING;
+                                doWork = false;
+                                isGuestOrder = false;
+                                targetPlayer = null;
+                            }
+                        }
+                        break;
+                    }
+
+                //대기중 상태일 때 처리
+                case T_STATE.WAITING:
+                    {
+                        PlayerCharacterAnimation playerState = targetPlayer.GetComponentInChildren<PlayerCharacterAnimation>();
+                        PlayerConfig playerConfig = targetPlayer.GetComponent<PlayerConfig>();
+                        //플레이어가 서빙 상태이고 주문을 시킨 테이블이 이 테이블 일 때
+                        if (playerState.isServing
+                            && playerConfig.servingOrder.table == gameObject)
+                        {
+                            playerState.isServing = false;
+                            playerConfig.servingOrder = null;
+
+                            //그룹에 속한 손님들의 상태를 EAT로 전환
+                            for (int i = 0; i < guestGroup.Count; i++)
+                            {
+                                guestGroup[i].GetComponent<GuestAction>().SetCurrentState(G_STATE.EAT);
+                            }
+                        }
+
+                        break;
+                    }
+
             }
-        }
+
+        }   //플레이어의 처리 완료
+
+
     }
 
     void RequestOrder() //주문 요청에 관한 처리
@@ -197,12 +247,12 @@ public class TableStateManager : MonoBehaviour {
         //메뉴 병합(중복 허용)
         for (i = 0; i < myMenu.Count; i++)
         {
-            orderList.Add(myMenu[i]);
+            orderMenus.Add(myMenu[i]);
         }
 
-        while (orderList.Count > TABLE_ORDER_COUNT) //테이블 당 최대 주문 개수 맞추기
+        while (orderMenus.Count > TABLE_ORDER_COUNT) //테이블 당 최대 주문 개수 맞추기
         {
-            orderList.RemoveAt(Random.Range(0, orderList.Count));
+            orderMenus.RemoveAt(Random.Range(0, orderMenus.Count));
         }
 
     }
@@ -210,6 +260,39 @@ public class TableStateManager : MonoBehaviour {
     public void SetOrderEventEnabled(bool _enabled) //이벤트 발생 여부 받기
     {
         isGuestOrder = _enabled;
+    }
+
+    public static GameObject ConvertTableIDToGameObject(int _tableID)   //테이블 ID를 게임 오브젝트로 변환
+    {
+        //모든 테이블들의 ID를 검색
+        TableStateManager[] tables = GameObject.Find("TableGroup").GetComponentsInChildren<TableStateManager>();
+        for (int i = 0; i < tables.Length; i++)
+        {
+            if (tables[i].tableID == _tableID)
+            {   //찾은 테이블의 오브젝트를 반환(스프라이트용 오브젝트->자식0번)
+                return tables[i].gameObject;
+            }
+        }
+
+        return null;
+    }
+
+    public void DecideWhoPay()
+    {
+        int payer = Random.Range(0, guestGroup.Count);
+
+        //손님들 중 임의로 한 명을 선택하여 지불하게 함
+        for (int i = 0; i < guestGroup.Count; i++)
+        {
+            if (i == payer)
+            {
+                guestGroup[i].GetComponent<GuestAction>().isPayer = true;
+            }
+            else
+            {
+                guestGroup[i].GetComponent<GuestAction>().isPayer = false;
+            }
+        }
     }
 
 }
