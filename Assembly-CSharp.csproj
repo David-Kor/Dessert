@@ -106,6 +106,7 @@
      <Compile Include="Assets\CScripts\UI_script\StorageUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\SubmitButton.cs" />
      <Compile Include="Assets\CScripts\UI_script\ToggleView.cs" />
+     <Compile Include="Assets\CScripts\UI_script\TotalCashValue.cs" />
      <Compile Include="Assets\iTween\Plugins\Pixelplacement\iTween\iTween.cs" />
      <Compile Include="Assets\iTween\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
      <Compile Include="Assets\iTween\Plugins\Pixelplacement\iTween\Sample\RotateSample.cs" />

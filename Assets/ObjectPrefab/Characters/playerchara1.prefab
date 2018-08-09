@@ -190,7 +190,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430335496687274}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 1, z: 0}
+  m_LocalPosition: {x: 7, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4882226969921916}
@@ -329,6 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToTakeOrder: 3
   timeToScrub: 5
+  timeToPay: 4
 --- !u!114 &114522328420602530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -355,7 +356,7 @@ MonoBehaviour:
   hallField: {fileID: 0}
   kitchenField: {fileID: 0}
   currentField: {fileID: 0}
-  moveSpeed: 15
+  moveSpeed: 5
 --- !u!114 &114848134817696070
 MonoBehaviour:
   m_ObjectHideFlags: 1

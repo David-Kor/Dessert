@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 114791075763597536}
   m_Layer: 0
   m_Name: Day Counter
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,11 +55,11 @@ GameObject:
   - component: {fileID: 114867896558852198}
   m_Layer: 0
   m_Name: CameraForUIEffect
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1472203667548234
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4304091197975308}
   m_Layer: 0
   m_Name: BackGroundWorkSpace
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,11 +86,11 @@ GameObject:
   - component: {fileID: 212191528893674322}
   m_Layer: 0
   m_Name: Time Counter
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1533535072372636
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81da5ab3331f1b74c8df59027c5fc372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveLoad: {fileID: 1158925019523540}
   ingrImg:
   - {fileID: 21300000, guid: 9cb668cb55fa4d740850fda6af6e1cdb, type: 3}
   - {fileID: 21300000, guid: 7a8ba2ece44ae3f4f919488a96eec756, type: 3}
@@ -329,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266833e9655e8284aae79ea575534308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secPerDay: 600
+  secPerDay: 100
   moveHeight: 2.248
 --- !u!114 &114898774582274874
 MonoBehaviour:
@@ -342,6 +343,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd0e79e0229d284382a4cd3cc30c483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textAssets:
+  - {fileID: 4900000, guid: a98fcb93a28272e4d9377a25954592a6, type: 3}
+  - {fileID: 4900000, guid: ac70676d5015cde4c9550be1cee67d93, type: 3}
+  - {fileID: 4900000, guid: 12952589c454bf64282a43ab13a43c27, type: 3}
 --- !u!212 &212191528893674322
 SpriteRenderer:
   m_ObjectHideFlags: 1

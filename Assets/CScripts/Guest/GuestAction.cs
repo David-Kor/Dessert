@@ -13,6 +13,7 @@ public class GuestAction : MyCharacterMove{
     public float timeToOrderSec;
     public float timeToEatSec;
     public bool isPayer;
+    public List<int> myMenus;
 
     private G_STATE prevState;
     private GameObject myTable;
@@ -166,17 +167,25 @@ public class GuestAction : MyCharacterMove{
         timer += Time.deltaTime;
         if (timer >= timeToEatSec)
         {
-            TableStateManager table = myTable.GetComponent<TableStateManager>();
-            table.DecideWhoPay();
-            table.stateOfTable = T_STATE.DIRTY;
-            table.guestGroup.Clear();
-            currentState = G_STATE.MOVE;
-            timer = 0;
-            table.transform.parent.GetComponentInChildren<TableActMarker>().ShowActionMarker(currentState);
-            myTable = null;
-            myGroup = null;
-            myGround.GetComponent<GroundUnit>().SetAbsolutePassable(true);
-
+            //방금 식사가 완료된 상태
+            if (myTable != null)
+            {
+                TableStateManager table = myTable.GetComponent<TableStateManager>();
+                table.DecideWhoPay();
+                table.stateOfTable = T_STATE.DIRTY;
+                currentState = G_STATE.MOVE;
+                table.guestGroup.Clear();
+                table.transform.parent.GetComponentInChildren<TableActMarker>().ShowActionMarker(currentState);
+                myMenus = table.GetOrderMenus();
+                myTable = null;
+                myGroup = null;
+                myGround.GetComponent<GroundUnit>().SetAbsolutePassable(true);
+            }
+            //값을 지불한 상태(PayAtCounter 스크립트 참조)
+            else
+            {
+                currentState = G_STATE.MOVE;
+            }
             GameObject moveToGround = null;
             if (isPayer)
             {
@@ -195,12 +204,7 @@ public class GuestAction : MyCharacterMove{
 
     void PayStateAction()   //Pay 상태 AI
     {
-        if (counterToPay.GetComponent<PayAtCounter>().PeekGuestFromQueue()
-            != gameObject)
-        {
-            currentState = G_STATE.MOVE;
-            MoveThisGround(RayCastGround((Vector2)transform.position + Vector2.up));
-        }
+        //비어있음
     }
 
     public void SetCurrentState(G_STATE _state) { currentState = _state; }

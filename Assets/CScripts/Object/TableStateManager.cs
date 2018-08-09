@@ -21,6 +21,8 @@ public class TableStateManager : MonoBehaviour {
     private GameObject targetPlayer;
     private GameObject accessGround;
     private List<int> orderMenus;
+    private Color dirtyColor;
+
 
     // Use this for initialization
     void Start()
@@ -38,6 +40,7 @@ public class TableStateManager : MonoBehaviour {
         strToID = strToID.Replace("(", "");     // ( 제거
         strToID = strToID.Replace(")", "");     // ) 제거
         tableID = System.Convert.ToInt32(strToID) + 1;
+        dirtyColor = new Color(0.4f, 0.4f, 0.4f);
     }
 
     // Update is called once per frame
@@ -99,12 +102,14 @@ public class TableStateManager : MonoBehaviour {
         switch (stateOfTable)
         {
             case T_STATE.CLEAR:
+                GetComponent<SpriteRenderer>().color = Color.white;
                 break;
             case T_STATE.USING:
                 break;
             case T_STATE.WAITING:
                 break;
             case T_STATE.DIRTY:
+                GetComponent<SpriteRenderer>().color = dirtyColor;
                 break;
             case T_STATE.RESERVED:
                 break;
@@ -294,5 +299,7 @@ public class TableStateManager : MonoBehaviour {
             }
         }
     }
+
+    public List<int> GetOrderMenus() { return orderMenus; }
 
 }

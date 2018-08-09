@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using TEXTASSET = EnumCollection.TEXTASSET;
 
 public class SaveAndLoad : MonoBehaviour
 {
-    /*
-    private string save = "#Inventory,,,,,\nRefrigerator,Ingredient,RemainPeriod,Count,HorizonalIndex,VerticalIndex\n0,a,100,99,0,0\n0,b,100,99,1,0\n0, c,100,99,2,0\n0, d,100,99,3,0\n0,e,100,99,4,0\n0, f,100,99,0,1\n0, g,100,99,1,1\n0,h,100,99,2,1\n0, i,100,99,3,1\n0, j,100,99,4,1\n0, k,100,99,0,2\n0, l,100,99,1,2\n0, m,100,99,2,2\n0, n,100,99,3,2\n0, o,100,99,4,2\n0, p,100,99,0,3\n0, q,100,99,1,3\n0, r,100,99,2,3\n#END,,,,,";
-    */private List<string[]> parser;
+    public TextAsset[] textAssets;
+
+    private List<string[]> parser;
 
     private static List<ParsedInventory> parsedInventory;
     public struct ParsedInventory {
@@ -29,19 +30,30 @@ public class SaveAndLoad : MonoBehaviour
     /*문서 -> 리스트<문자열 배열> 파싱*/
     private void ParsingSaveFile()  //세이브 파일을 불러들여 모든 행을 ','로 나눈 문자열들의 배열로 파싱
     {
+        char unknownChar = System.Convert.ToChar(13);   //이유는 모르겠으나 이 문자가 계속 포함되어있음
+        //TextAsset textFile = textAssets[(int)TEXTASSET.SAVE];
+        TextAsset textFile = Resources.Load("Save/Save") as TextAsset;
+        StringReader sr = new StringReader(textFile.text);
         /*
-        string[] str = save.Split('\n');
-        string line = "";
+        string fileFullPath = textFile.text;
 
-        for (int i = 0; i < str.Length; i++)
+        //알수 없는 문자 제거
+        while (fileFullPath.Contains(unknownChar.ToString()))
         {
-            line = str[i];
-            if (line == null) { continue; }
-            parser.Add(line.Split(','));
-        }*/
+            fileFullPath = fileFullPath.Replace(unknownChar.ToString(), "");
+        }
+        string[] lines = fileFullPath.Split('\n');
+
+        for(int i=0; i<lines.Length; i++)
+        {
+            if (lines[i] == null) { break; }
+
+            parser.Add(lines[i].Split(','));
+        }   //작성 완료
         
-        FileStream f = new FileStream(Application.dataPath + "/Save/Save.csv", FileMode.Open);   //인벤토리 파일 불러오기
-        StreamReader sr = new StreamReader(f);
+        
+        FileStream f = new FileStream(Application.dataPath + "/Resources/Save/Save.csv", FileMode.Open);   //인벤토리 파일 불러오기
+        StreamReader sr = new StreamReader(f);*/
         string line = "ReadLine";
 
         while (line != null)

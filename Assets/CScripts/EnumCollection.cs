@@ -6,4 +6,5 @@
     public enum T_STATE { CLEAR, USING, WAITING, DIRTY, RESERVED }
     public enum G_STATE { MOVE, HOLD, SIT, ORDER, WAIT, EAT, PAY }
     public enum TITLE { COOK, STORAGE, DISHING, BUY, NONE }
+    public enum TEXTASSET { RECIPE = 0, INGREDIENT, SAVE }
 }

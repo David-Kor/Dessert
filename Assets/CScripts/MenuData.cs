@@ -4,9 +4,11 @@ using UnityEngine;
 using SEASON = EnumCollection.SEASON;   //EnumCollection에 있는 enum형들을 통해 일관성 있게 사용 가능
 using PLATE = EnumCollection.PLATE;
 using TOOL = EnumCollection.TOOL;
+using TEXTASSET = EnumCollection.TEXTASSET;
 
 public class MenuData : MonoBehaviour
 {
+    public GameObject saveLoad;
     public List<Sprite> ingrImg;
     public Dictionary<char, Sprite> getIngrImage;
     public List<Dictionary<string, string>> recipes;
@@ -131,10 +133,38 @@ public class MenuData : MonoBehaviour
 
     void ParsingRecipe()
     {
+        char unknownChar = System.Convert.ToChar(13);   //이유는 모르겠으나 이 문자가 계속 포함되어있음
+        //TextAsset textFile = saveLoad.GetComponent<SaveAndLoad>().textAssets[(int)TEXTASSET.RECIPE];
+        TextAsset textFile = Resources.Load("recipe") as TextAsset;
+        StringReader sr = new StringReader(textFile.text);
+        /*
+        string fileFullPath = textFile.text;
+        //알수 없는 문자 제거
+        while (fileFullPath.Contains(unknownChar.ToString()))
+        {
+            fileFullPath = fileFullPath.Replace(unknownChar.ToString(), "");
+        }
+        string[] lines =fileFullPath.Split('\n');
+        string[] value = null;
+        recipes = new List<Dictionary<string, string>>();
+        //첫번째 줄이 Key들이므로 쉼표로 문자열을 구분하여 저장
+        recipeKey = lines[0].Split(',');
+        for (int i = 1; i < lines.Length; i++)
+        {
+            if (lines[i] == null) { break; }
+            value = lines[i].Split(',');
+            recipes.Add(new Dictionary<string, string>());  //레시피 한 줄 추가
+            for (int j = 0; j < recipeKey.Length; j++)  //Key의 종류 수만큼 반복
+            {
+                recipes[recipes.Count - 1].Add(recipeKey[j], value[j]);
+            }
+        }
+
+        
         FileStream f = new FileStream(Application.dataPath + "/Resources/recipe.csv", FileMode.Open);   //레시피 파일 불러오기
-        StreamReader sr = new StreamReader(f);
+        StreamReader sr = new StreamReader(f);*/
         string line = sr.ReadLine();    //한 줄 읽기
-        string[] value;
+        string[] value = null;
         recipes = new List<Dictionary<string, string>>();
 
         recipeKey = line.Split(',');  //첫번째 줄이 Key들이므로 쉼표로 문자열을 구분하여 저장
@@ -157,8 +187,38 @@ public class MenuData : MonoBehaviour
 
     void ParsingIngredient()
     {
+        char unknownChar = System.Convert.ToChar(13);   //이유는 모르겠으나 이 문자가 계속 포함되어있음
+        //TextAsset textFile = saveLoad.GetComponent<SaveAndLoad>().textAssets[(int)TEXTASSET.INGREDIENT];
+        TextAsset textFile = Resources.Load("Init_Ingredient") as TextAsset;
+        StringReader sr = new StringReader(textFile.text);
+        /*
+        string fileFullPath = textFile.text;
+
+        //알수 없는 문자 제거
+        while (fileFullPath.Contains(unknownChar.ToString()))
+        {
+            fileFullPath = fileFullPath.Replace(unknownChar.ToString(), "");
+        }
+
+        string[] lines = fileFullPath.Split('\n');
+        string[] key = lines[0].Split(',');
+        string[] value;
+
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if (lines[i] == null) { break; }
+
+            value = lines[i].Split(',');
+            ingredList.Add(new Dictionary<string, string>());
+            for (int j = 0; j < key.Length; j++)
+            {
+                ingredList[ingredList.Count - 1].Add(key[j], value[j]);
+            }
+        }
+
+        
         FileStream f = new FileStream(Application.dataPath + "/Resources/Init_Ingredient.csv", FileMode.Open);   //재료 파일 불러오기
-        StreamReader sr = new StreamReader(f);
+        StreamReader sr = new StreamReader(f);*/
         string line = sr.ReadLine();    //한 줄 읽기
         string[] key;
         string[] value;
@@ -187,7 +247,6 @@ public class MenuData : MonoBehaviour
         }
 
         getIngrImage.Add('\0', null);
-        
     }   //외부 재료 파일 정보 불러오기
 
     void WriteParsingInfo()
@@ -300,5 +359,10 @@ public class MenuData : MonoBehaviour
         return null;
     }
 
+    public static float GetPriceOfMenu(int _id)
+    {
+        Menu _menu = ConvertMenuIDToMenu(_id);
+        return _menu.price;
+    }
 
 }
