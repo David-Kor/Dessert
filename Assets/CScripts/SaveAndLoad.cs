@@ -30,30 +30,8 @@ public class SaveAndLoad : MonoBehaviour
     /*문서 -> 리스트<문자열 배열> 파싱*/
     private void ParsingSaveFile()  //세이브 파일을 불러들여 모든 행을 ','로 나눈 문자열들의 배열로 파싱
     {
-        char unknownChar = System.Convert.ToChar(13);   //이유는 모르겠으나 이 문자가 계속 포함되어있음
-        //TextAsset textFile = textAssets[(int)TEXTASSET.SAVE];
         TextAsset textFile = Resources.Load("Save/Save") as TextAsset;
         StringReader sr = new StringReader(textFile.text);
-        /*
-        string fileFullPath = textFile.text;
-
-        //알수 없는 문자 제거
-        while (fileFullPath.Contains(unknownChar.ToString()))
-        {
-            fileFullPath = fileFullPath.Replace(unknownChar.ToString(), "");
-        }
-        string[] lines = fileFullPath.Split('\n');
-
-        for(int i=0; i<lines.Length; i++)
-        {
-            if (lines[i] == null) { break; }
-
-            parser.Add(lines[i].Split(','));
-        }   //작성 완료
-        
-        
-        FileStream f = new FileStream(Application.dataPath + "/Resources/Save/Save.csv", FileMode.Open);   //인벤토리 파일 불러오기
-        StreamReader sr = new StreamReader(f);*/
         string line = "ReadLine";
 
         while (line != null)

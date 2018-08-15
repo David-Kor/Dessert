@@ -24,7 +24,7 @@ public class TableStateManager : MonoBehaviour {
     private Color dirtyColor;
 
 
-    // Use this for initialization
+
     void Start()
     {
         stateOfTable = 0;
@@ -43,7 +43,7 @@ public class TableStateManager : MonoBehaviour {
         dirtyColor = new Color(0.4f, 0.4f, 0.4f);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (preState != stateOfTable)

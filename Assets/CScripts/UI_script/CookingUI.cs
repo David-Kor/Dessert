@@ -34,10 +34,27 @@ public class CookingUI : MonoBehaviour
         currentPage.SetActive(true);
     }
 
-
     void WriteOrderInfo(GameObject _panelUI, Order _order, int _menuIndex)   //패널 UI에 주문 정보 작성
     {
         _panelUI.GetComponent<CookOrderPanelUI>().OrderPanelTextWrite(_order, _menuIndex);
+    }
+
+    GameObject FindButtonByPage(GameObject _page)
+    {
+        if (buttonList.Count == 0)
+        {
+            return null;
+        }
+        LinkedListNode<GameObject> btnNode = buttonList.First;
+        GameObject rtnPage = null;
+        while (btnNode != null)
+        {
+            rtnPage = btnNode.Value.GetComponent<CookPageButtonUI>().myPage;
+            if (rtnPage == _page) { return rtnPage; }
+            btnNode = btnNode.Next;
+        }
+
+        return null;
     }
 
     public void AppendOrderUI(Order _order)
@@ -52,7 +69,6 @@ public class CookingUI : MonoBehaviour
             //자식 패널단위 반복
             for (i = 0; i < pageNode.Value.transform.childCount; i++)   //pageNode의 자식 오브젝트 검사
             {
-
                 if (orderCounter == 0)
                 {   //처음 들어온 주문인 경우 비활성화 후 정보를 작성하고 다시 활성화시킴
                     pageNode.Value.transform.GetChild(0).gameObject.SetActive(false);
@@ -98,6 +114,7 @@ public class CookingUI : MonoBehaviour
         Order _order = null;
         int _menuIndex = -1;
         
+        //주문 한 칸씩 당기기
         while (panelNode.Next != null)
         {
             _order = panelNode.Next.Value.GetComponent<CookOrderPanelUI>().order;
@@ -107,17 +124,27 @@ public class CookingUI : MonoBehaviour
         }   //연결 리스트 순회 끝
 
         panelNode.Value.GetComponent<CookOrderPanelUI>().OrderPanelTextWrite(null, -1);
-        if (panelNode != panelList.First)
+        if (panelNode.Value != CookOrderPanelUI.firstPageFirstPanel)
         {
             orderCounter--;
             GameObject rmPanel = panelNode.Value;
             panelList.Remove(panelNode);
             rmPanel.SetActive(false);
+            //해당 패널이 있는 페이지의 모든 패널이 비활성화 되어있는지 확인
             if (rmPanel.transform.GetComponentInParent<CookPageUI>().CheckAllOrderPanelInactive())
-            {
-                pageList.Remove(rmPanel.transform.parent.gameObject);
-                Destroy(rmPanel.transform.parent.gameObject);
+            {   //모두 비활성화 되어있으면 페이지 제거
+                GameObject rmPage = rmPanel.transform.parent.gameObject;
+                Destroy(FindButtonByPage(rmPage));  //해당 페이지의 버튼 제거
+                pageList.Remove(rmPage);
+                Destroy(rmPage);
             }
+        }
+        else
+        {
+            orderCounter--;
+            GameObject rmPanel = panelNode.Value;
+            panelList.Remove(panelNode);
+            rmPanel.GetComponent<CookOrderPanelUI>().OrderPanelTextWrite(null, -1);
         }
     }
 

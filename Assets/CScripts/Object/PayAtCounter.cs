@@ -9,7 +9,7 @@ public class PayAtCounter : MonoBehaviour
     //child(0) : Counter Position For Cast
     //child(1) : Pay Position For Guest
 
-    public static float totalIncome;
+    public static float totalIncome = 0.0f;
 
     private GameObject targetPlayer;
     private GameObject accessGround;
@@ -25,7 +25,6 @@ public class PayAtCounter : MonoBehaviour
         doWork = false;
         timer = 0.0f;
         timeToPay = 0.0f;
-        totalIncome = 0.0f;
     }
 
 

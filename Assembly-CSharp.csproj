@@ -97,6 +97,7 @@
      <Compile Include="Assets\CScripts\UI_script\IngredientUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\Inventory.cs" />
      <Compile Include="Assets\CScripts\UI_script\InventorySpaceUI.cs" />
+     <Compile Include="Assets\CScripts\UI_script\JournalTabBuutton.cs" />
      <Compile Include="Assets\CScripts\UI_script\KitchenUI.cs" />
      <Compile Include="Assets\CScripts\UI_script\OptionOpenAndClose.cs" />
      <Compile Include="Assets\CScripts\UI_script\PlayerSelectButton.cs" />

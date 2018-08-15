@@ -59,6 +59,7 @@ public class EventListener : MonoBehaviour
         if (Input.GetButtonDown("Cancel"))
         {  //ESC키를 누르거나 화면이 전환되면 선택 해제
             isClickPlayer = false;
+            isClickUI = false;
             if (selectedPlayer != null) { selectedPlayer.transform.GetChild(1).gameObject.SetActive(false); }
             selectedPlayer = null;
             selectedGround = null;
